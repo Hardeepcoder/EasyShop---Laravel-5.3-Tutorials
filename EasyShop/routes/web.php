@@ -35,8 +35,10 @@ Route::group(['prefix'=>'admin', 'middleware' => ['auth', 'admin']], function(){
     Route::get('/', function(){
         return view('admin.home');
     });
+	
+	
     
 });
 //Route::get('/admin', 'AdminController@index');
 
-//Route::POST('/admin/add_product','AdminController@add_product');
+Route::POST('/admin/add_product','AdminController@add_product');
