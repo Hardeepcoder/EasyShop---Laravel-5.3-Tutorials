@@ -6,11 +6,7 @@
     }</style>
 
 
-<section id="advertisement">
-    <div class="container">
-        <img src="{{asset('theme/images/shop/advertisement.jpg')}}" alt="" />
-    </div>
-</section>
+
 <section id="cart_items">
     <div class="container">
         <div class="breadcrumbs">
@@ -20,16 +16,12 @@
             </ol>
         </div><!--/breadcrums-->
 
-        <div class="step-one">
-            <h2 class="heading"><span style='color:green'>{{ucwords(Auth::user()->name)}}</span>, Your Orders</h2>
-        </div>
+
 
         <div class="row">
-            <div class="col-md-4">
-                <h2>Sidebar</h2>
-            </div>
+            @include('profile.menu')
             <div class="col-md-8">
-
+                <h2 class="heading"><span style='color:green'>{{ucwords(Auth::user()->name)}}</span>, Your Orders</h2>
                 <table class="table table-responsive">
                     <thead>
                         <tr>
@@ -38,9 +30,9 @@
                             <th>Product Code</th>
                             <th>Order Total</th>
                             <th>Order Status</th>
-                            
+
                             <th>Details</th>
-                         
+
                         </tr>
                     </thead>
 

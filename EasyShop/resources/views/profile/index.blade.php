@@ -6,24 +6,37 @@
     }</style>
 
 
-<section id="advertisement">
+
+
+<section id="cart_items">
     <div class="container">
-        <img src="{{asset('theme/images/shop/advertisement.jpg')}}" alt="" />
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="{{url('/')}}">Home</a></li>
+                <li class="active">My Profile</li>
+            </ol>
+        </div><!--/breadcrums-->
+
+        <div class="row">
+            @include('profile.menu')
+            <div class="col-md-8">
+
+                <?php /*   <table border="0" align="center">   
+                  <tr>
+                  <td>      <a href="{{url('/')}}/orders" class="btn btn-success">My Orders</a></td>
+                  <td>      <a href="" class="btn btn-success">My Address</a></td>
+                  <td>      <a href="" class="btn btn-success">Change Password</a></td>
+                  </tr>
+                  </table>
+                 * 
+                 */ ?>
+                <h2 class="heading"><span style='color:green'>{{ucwords(Auth::user()->name)}}</span></h2>
+                <p>  welcome to your profile</p>
+            </div>
+        </div>
+
+
+
     </div>
 </section>
-
-<h1 align="center">Hi, <span style='color:green'>{{ucwords(Auth::user()->name)}}</span> </h1>
-
-<div class="container">    
-    <p class="panel-body" align="center">
-        welcome to your profile</p>
-
-    <table border="0" align="center">   
-        <tr>
-            <td>      <a href="{{url('/')}}/orders" class="btn btn-success">My Orders</a></td>
-            <td>      <a href="" class="btn btn-success">My Address</a></td>
-            <td>      <a href="" class="btn btn-success">Change Password</a></td>
-        </tr>
-    </table>
-</div>
 @endsection
