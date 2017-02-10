@@ -1,18 +1,18 @@
 <?php
 
 /*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| This file is where you may define all of the routes that are handled
-| by your application. Just tell Laravel the URIs it should respond
-| to using a Closure or controller method. Build something great!
-|
-*/
+  |--------------------------------------------------------------------------
+  | Web Routes
+  |--------------------------------------------------------------------------
+  |
+  | This file is where you may define all of the routes that are handled
+  | by your application. Just tell Laravel the URIs it should respond
+  | to using a Closure or controller method. Build something great!
+  |
+ */
 
-Route::get('/','HomeController@index');
-Route::get('/home','HomeController@index');
+Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@index');
 
 
 Route::get('/product_details/{id}', 'HomeController@product_details');
@@ -21,7 +21,7 @@ Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::get('/shop', 'HomeController@shop');
 Route::get('/contact', 'HomeController@contact');
-Route::post('/search','HomeController@search');
+Route::post('/search', 'HomeController@search');
 Route::get('/cart', 'CartController@index');
 
 Route::get('/cart/addItem/{id}', 'CartController@addItem');
@@ -29,16 +29,31 @@ Route::get('/cart/addItem/{id}', 'CartController@addItem');
 Route::get('/cart/remove/{id}', 'CartController@destroy');
 Route::put('/cart/update/{id}', 'CartController@update');
 
+// logged in user pages
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/checkout', 'CheckoutController@index');
+    Route::post('/formvalidate', 'CheckoutController@formvalidate');
+
+    Route::get('/profile', function() {
+        return view('profile.index');
+    });
+    Route::get('/orders', 'ProfileController@orders');
+
+    Route::get('/thankyou', function() {
+        return view('profile.thankyou');
+    });
+
+    Route::get('/mail', 'HomeController@sendmail');
+});
+
 Auth::routes();
 
-Route::group(['prefix'=>'admin', 'middleware' => ['auth', 'admin']], function(){
-    Route::get('/', function(){
-        return view('admin.home');
-    });
-	
-	
-    
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function() {
+    Route::get('/', 'AdminController@index');
 });
+
+
+
 //Route::get('/admin', 'AdminController@index');
 
-Route::POST('/admin/add_product','AdminController@add_product');
+Route::POST('/admin/add_product', 'AdminController@add_product');

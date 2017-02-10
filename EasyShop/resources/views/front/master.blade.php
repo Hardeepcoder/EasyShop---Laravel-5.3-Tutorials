@@ -63,7 +63,7 @@
                             <div class="shop-menu pull-right">
                                 <ul class="nav navbar-nav">
                                  <?php if(Auth::check()){?>
-                                    <li><a href="#"><i class="fa fa-user"></i>{{ucwords(Auth::user()->name)}}</a></li>
+                                    <li><a href="{{url('/')}}/profile"><i class="fa fa-user"></i>{{ucwords(Auth::user()->name)}}</a></li>
                                  <?php }?>
                                     <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
                                     <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>

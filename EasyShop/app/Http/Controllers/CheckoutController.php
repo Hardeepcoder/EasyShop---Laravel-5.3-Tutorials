@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use App\address;
+use App\orders;
 
 class CheckoutController extends Controller {
 
     public function index() {
         // check for user login
         if (Auth::check()) {
-            return view('front.checkout');
+              $cartItems = Cart::content(); 
+            return view('front.checkout', compact('cartItems'));
         } else {
             return redirect('login');
         }
@@ -35,8 +38,14 @@ class CheckoutController extends Controller {
 
         $address->user_id = $userid;
         $address->pincode = $request->pincode;
+        $address->payment_type = $request->pay;
         $address->save();
-        dd('done');
+       
+        
+        orders::createOrder();
+        
+        Cart::destroy();
+        return redirect('thankyou');
     }
 
 }
