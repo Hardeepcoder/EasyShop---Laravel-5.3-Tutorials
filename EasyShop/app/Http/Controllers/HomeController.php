@@ -3,6 +3,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request; 
 
+use Mail;
+use App\Mail\contacts;
 class HomeController extends Controller
 {
     /**
@@ -66,6 +68,12 @@ class HomeController extends Controller
          $Products = DB::table('products')->where('pro_name','like', '%'.$search.'%')->paginate(2);
          return view('front.shop', ['msg' =>'Results: '. $search ] , compact('Products'));
         }
+    }
+    
+    public function sendmail(){
+        $mail = 'hardeepphp@yahoo.com';
+        Mail::to($mail)->send(new contacts);
+        dd('mail sent');
     }
     
 }

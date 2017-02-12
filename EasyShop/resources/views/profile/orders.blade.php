@@ -21,7 +21,7 @@
         <div class="row">
             @include('profile.menu')
             <div class="col-md-8">
-                <h2 class="heading"><span style='color:green'>{{ucwords(Auth::user()->name)}}</span>, Your Orders</h2>
+               <h3 ><span style='color:green'>{{ucwords(Auth::user()->name)}}</span>,  Your Orders</h3>
                 <table class="table table-responsive">
                     <thead>
                         <tr>

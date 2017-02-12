@@ -30,8 +30,8 @@
                   </table>
                  * 
                  */ ?>
-                <h2 class="heading"><span style='color:green'>{{ucwords(Auth::user()->name)}}</span></h2>
-                <p>  welcome to your profile</p>
+                <h3><span style='color:green'>{{ucwords(Auth::user()->name)}}</span>, Welcome</h3>
+              
             </div>
         </div>
 

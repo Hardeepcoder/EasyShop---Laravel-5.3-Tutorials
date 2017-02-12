@@ -38,6 +38,12 @@ Route::group(['middleware' => 'auth'], function() {
         return view('profile.index');
     });
     Route::get('/orders', 'ProfileController@orders');
+    
+    Route::get('/address', 'ProfileController@address');
+     Route::post('/updateAddress', 'ProfileController@UpdateAddress');
+     
+    Route::get('/password', 'ProfileController@Password');
+    Route::post('/updatePassword', 'ProfileController@updatePassword');
 
     Route::get('/thankyou', function() {
         return view('profile.thankyou');

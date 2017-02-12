@@ -67,7 +67,8 @@
                                  <?php }?>
                                     <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
                                     <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                                    <li><a href="{{url('/cart')}}"><i class="fa fa-shopping-cart"></i> Cart({{Cart::count()}})</a></li>
+                                    <li><a href="{{url('/cart')}}"><i class="fa fa-shopping-cart"></i> Cart <span style="color:green; font-weight: bold">({{Cart::count()}})</span><br>
+                                    <p align="center" style="color:green; font-weight:bold">({{Cart::subtotal()}})</p></a></li>
                                <?php if(Auth::check()){?>
                                     <li><a href="{{url('/logout')}}"><i class="fa fa-lock"></i> Logout</a></li>
                                <?php } else {?>

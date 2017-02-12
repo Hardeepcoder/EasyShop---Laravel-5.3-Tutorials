@@ -5,7 +5,7 @@
                     <li><a href="{{url('/profile')}}">My Profile</a></li>
                     <li><a href="{{url('/orders')}}">My Orders</a></li>
                     <li><a href="{{url('/address')}}">My Address</a></li>                    
-                    <li><a href="">Change Password</a></li>
+                    <li><a href="{{url('/password')}}">Change Password</a></li>
                 </ul>
 
             </div>
