@@ -37,7 +37,7 @@ class ProfileController extends Controller {
         $userid = Auth::user()->id;
         DB::table('address')->where('user_id', $userid)->update($request->except('_token'));
 
-        return back();
+        return back()->with('msg','Your address has been upodated');
     }
 
     public function Password() {
@@ -50,11 +50,11 @@ class ProfileController extends Controller {
        
 
         if(!Hash::check($oldPassword, Auth::user()->password)){
-            echo 'The specified password does not match the database password'; //when user enter wrong password as current password
+          return back()->with('msg','The specified password does not match the database password'); //when user enter wrong password as current password
             
         }else{
             $request->user()->fill(['password' => Hash::make($newPassword)])->save(); //updating password into user table
-            echo 'done';
+           return back()->with('msg','Password has been updated');
         }
        // echo 'here update query for password';
     }
