@@ -20,6 +20,9 @@ Route::get('/product_details/{id}', 'HomeController@product_details');
 Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::get('/shop', 'HomeController@shop');
+Route::get('/products', 'HomeController@shop');
+Route::get('/products/{name}', 'HomeController@proCats');
+
 Route::get('/contact', 'HomeController@contact');
 Route::post('/search', 'HomeController@search');
 Route::get('/cart', 'CartController@index');
@@ -56,10 +59,16 @@ Auth::routes();
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function() {
     Route::get('/', 'AdminController@index');
+    
+    Route::get('/addProduct', 'AdminController@index');
+    Route::get('/products', 'AdminController@view_products');
+    
+    Route::get('/addCat', 'AdminController@add_cat');
+    Route::get('/categories', 'AdminController@view_cats');
 });
-
+Route::get('/logout', 'Auth\LoginController@logout');
 
 
 //Route::get('/admin', 'AdminController@index');
 
-Route::POST('/admin/add_product', 'AdminController@add_product');
+

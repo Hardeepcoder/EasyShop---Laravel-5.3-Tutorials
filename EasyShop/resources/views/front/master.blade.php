@@ -81,7 +81,7 @@
                 </div>
             </div><!--/header-middle-->
 
-          @include('front.menu')
+        @include('front.menu')
         </header><!--/header-->
         @yield('content')
 

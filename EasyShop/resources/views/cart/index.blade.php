@@ -4,15 +4,26 @@
 
 
 
-
 <?php if ($cartItems->isEmpty()) { ?>
-    <h1 align="center" style="color:green; margin:5%"> Cart is Empty</h1>
-<?php } else { ?>
     <section id="cart_items">
         <div class="container">
             <div class="breadcrumbs">
                 <ol class="breadcrumb">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="{{url('/')}}">Home</a></li>
+                    <li class="active">Shopping Cart</li>
+                </ol>
+            </div>
+            <div align="center">  <img src="{{asset('theme/images/cart/empty-cart.png')}}"/></div>
+
+        </div>
+    </section> <!--/#cart_items-->
+<?php } else { ?>
+
+    <section id="cart_items">
+        <div class="container">
+            <div class="breadcrumbs">
+                <ol class="breadcrumb">
+                    <li><a href="{{url('/')}}">Home</a></li>
                     <li class="active">Shopping Cart</li>
                 </ol>
             </div>
@@ -30,11 +41,13 @@
                         </tr>
                     </thead>
                     @foreach($cartItems as $cartItem)
+                    
+              
                     <tbody>
 
                         <tr>
                             <td class="cart_product">
-                                <a href=""><img src="images/cart/one.png" alt=""></a>
+                                <a href=""><img src="http://localhost/easyshop/upload/images/{{$cartItem->options->img}}" alt="" width="200px"></a>
                             </td>
                             <td class="cart_description">
                                 <h4><a href="">{{$cartItem->name}}</a></h4>
@@ -46,9 +59,9 @@
                             <td class="cart_quantity">
                                 <div class="cart_quantity_button">
                                     {!! Form::open(['url' => ['cart/update',$cartItem->rowId], 'method'=>'put']) !!}
-                                <input type="button" value="-" id="moins{{$cartItem->id}}" onclick="minus{{$cartItem->id}}()" class="cart_quantity_down">
-                               <input type="text" size="3" value="{{$cartItem->qty}}" name="qty" id="count{{$cartItem->id}}" autocomplete="off" style="text-align:center" >
-                                <input type="button" value="+" id="plus{{$cartItem->id}}" onclick="plus{{$cartItem->id}}()" class="cart_quantity_up">
+                                    <input type="button" value="-" id="moins{{$cartItem->id}}" onclick="minus{{$cartItem->id}}()" class="cart_quantity_down">
+                                    <input type="text" size="3" value="{{$cartItem->qty}}" name="qty" id="count{{$cartItem->id}}" autocomplete="off" style="text-align:center" >
+                                    <input type="button" value="+" id="plus{{$cartItem->id}}" onclick="plus{{$cartItem->id}}()" class="cart_quantity_up">
 
 
                                     <br>
@@ -68,8 +81,10 @@
                     </tbody>  @endforeach
                 </table>
             </div>
+
         </div>
     </section> <!--/#cart_items-->
+
     <section id="do_action">
         <div class="container">
             <div class="heading">
@@ -134,37 +149,37 @@
                 <div class="col-sm-6">
                     <div class="total_area">
                         <ul>
-                            <li>Cart Sub Total <span>${{$cartItem->subtotal}}</span></li>
-                            <li>Eco Tax <span>${{$cartItem->tax}}</span></li>
+                            <li>Cart Sub Total <span>${{Cart::subtotal()}}</span></li>
+                            <li>Eco Tax <span>${{Cart::tax()}}</span></li>
                             <li>Shipping Cost <span>Free</span></li>
-                            <li>Total <span>${{$cartItem->total}}</span></li>
+                            <li>Total <span>${{Cart::total()}}</span></li>
                         </ul>
                         <a class="btn btn-default update" href="">Update</a>
-                        <a class="btn btn-default check_out" href="">Check Out</a>
+                        <a class="btn btn-default check_out" href="{{url('/')}}/checkout">Check Out</a>
                     </div>
                 </div>
             </div>
         </div>
     </section><!--/#do_action-->
 
-    
+
     <script>
-            @foreach($cartItems as $cartItem)
-    var count{{$cartItem->id}} = 1;
-    var countEl{{$cartItem->id}} = document.getElementById("count{{$cartItem->id}}");
-    function plus{{$cartItem->id}}(){
-        count{{$cartItem->id}}++;
-        countEl.value = count{{$cartItem->id}};
-    }
-    function minus{{$cartItem->id}}(){
-      if (count{{$cartItem->id}} > 1) {
-        count{{$cartItem->id}}--;
-        countEl{{$cartItem->id}}.value = count{{$cartItem->id}};
-      }  
-    }
-@endforeach
+        @foreach($cartItems as $cartItem)
+                var count{{$cartItem -> id}} = 1;
+        var countEl{{$cartItem -> id}} = document.getElementById("count{{$cartItem->id}}");
+        function plus{{$cartItem -> id}}(){
+        count{{$cartItem -> id}}++;
+        countEl.value = count{{$cartItem -> id}};
+        }
+        function minus{{$cartItem -> id}}(){
+        if (count{{$cartItem -> id}} > 1) {
+        count{{$cartItem -> id}}--;
+        countEl{{$cartItem -> id}}.value = count{{$cartItem -> id}};
+        }
+        }
+        @endforeach
     </script>
-    
+
 <?php } ?>
 @endsection
 

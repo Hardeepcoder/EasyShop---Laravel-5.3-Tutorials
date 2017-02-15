@@ -1,6 +1,7 @@
 @extends('front.master')
 
 @section('content')
+
 <div id="contact-page" class="container">
     <div class="bg">
         <div class="row">    		

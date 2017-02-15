@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Bootstrap Admin Theme v3</title>
+    <title>EasyShop (Admin) </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="{{asset('admin_theme/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -24,7 +24,7 @@
          <div class="container">
          
             <div class="copy text-center">
-               Copyright 2014 <a href='#'>Website</a>
+               Copyright 2017 <a href='#'>EasyShop</a>
             </div>
             
          </div>
