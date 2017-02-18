@@ -41,7 +41,7 @@ Route::group(['middleware' => 'auth'], function() {
         return view('profile.index');
     });
     Route::get('/orders', 'ProfileController@orders');
-    
+
     Route::get('/address', 'ProfileController@address');
     Route::post('/updateAddress', 'ProfileController@UpdateAddress');
 
@@ -59,12 +59,29 @@ Auth::routes();
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function() {
     Route::get('/', 'AdminController@index');
-    
+
     Route::get('/addProduct', 'AdminController@index');
     Route::get('/products', 'AdminController@view_products');
-    
+
     Route::get('/addCat', 'AdminController@add_cat');
+
+    Route::Post('/catForm', 'AdminController@catForm');
     Route::get('/categories', 'AdminController@view_cats');
+    Route::get('/CatEditForm/{id}', 'AdminController@CatEditForm');
+
+    Route::post('/editCat', 'AdminController@editCat');
+
+
+    Route::get('ProductEditForm/{id}', 'AdminController@ProductEditForm');
+    
+    
+    Route::post('editProduct','AdminController@editProduct');
+    
+    Route::get('EditImage/{id}','AdminController@ImageEditForm');
+    
+    Route::post('editProImage','AdminController@editProImage');
+    
+    Route::get('deleteCat/{id}','AdminController@deleteCat');
 });
 Route::get('/logout', 'Auth\LoginController@logout');
 

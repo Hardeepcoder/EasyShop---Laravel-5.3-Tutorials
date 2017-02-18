@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Mail;
-
 use App\Mail\contacts;
 
 class HomeController extends Controller {
@@ -47,12 +46,10 @@ class HomeController extends Controller {
 
     public function proCats(Request $request) {
         $catName = $request->name;
-        $Products = DB::table('products')->leftJoin('pro_cat', 'pro_cat.id', '=','products.cat_id')->where('pro_cat.name','=',$catName)->paginate(2);
+        $Products = DB::table('pro_cat')->leftJoin('products', 'pro_cat.id', '=', 'products.cat_id')->where('pro_cat.name', '=', $catName)->paginate(2);
 
         return view('front.shop', compact('Products'));
     }
-    
-
 
     Public function product_details($id) {
 
