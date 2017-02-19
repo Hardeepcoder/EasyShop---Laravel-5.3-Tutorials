@@ -166,7 +166,7 @@
                             <div class="single-products">
                                 <div class="productinfo text-center">
                                     <a href="{{url('/product_details')}}">
-                                        <img src="http://localhost/easyshop/upload/images/<?php echo $product->pro_img; ?>" alt="" />
+                                        <img src="http://localhost/easyshop/upload/images/large/<?php echo $product->pro_img; ?>" alt="" />
                                     </a>
                                     <h2>$<?php echo $product->pro_price; ?></h2>
 

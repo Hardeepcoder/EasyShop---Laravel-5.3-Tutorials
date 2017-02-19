@@ -7,6 +7,7 @@ use App\products;
 use Illuminate\Http\Request;
 use Storage;
 use App\pro_cat;
+use Image;
 
 class AdminController extends Controller {
 
@@ -137,17 +138,29 @@ class AdminController extends Controller {
         $proid = $request->id;
 
         $file = $request->file('new_image');
-        $filename = $file->getClientOriginalName();
 
-        $path = 'upload/images';
-        $file->move($path, $filename);
+        $filename = time() . '.' . $file->getClientOriginalName();
+
+        $S_path = 'upload/images/small';
+        $M_path = 'upload/images/medium';
+        $L_path = 'upload/images/large';
+
+        $img = Image::make($file->getRealPath());
+        //$img->crop(300, 150, 25, 25);
+        $img->resize(100, 100)->save($S_path . '/' . $filename);
+        $img->resize(500, 500)->save($M_path . '/' . $filename);
+        $img->resize(1000, 1000)->save($L_path . '/' . $filename);
+        
+        
+
+       // $file->move($path, $filename);
 
 
         DB::table('products')->where('id', $proid)->update(['pro_img' => $filename]);
-
+        return redirect('/admin/products');
         //echo 'done';
-        $Products = DB::table('products')->get(); // now we are fetching all products
-        return view('admin.products', compact('Products'));
+        //  $Products = DB::table('products')->get(); // now we are fetching all products
+        //  return view('admin.products', compact('Products'));
     }
 
     //for delete cat
