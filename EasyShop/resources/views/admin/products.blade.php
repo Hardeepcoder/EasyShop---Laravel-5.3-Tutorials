@@ -30,7 +30,7 @@
                         @foreach($Products as $product)
                         <tbody>
                             <tr>
-                                <td> <img src="http://localhost/easyshop/upload/images/small/<?php echo $product->pro_img; ?>" alt="" width="50px" height="50px"/></td>
+                                <td> <img src="{{url('/')}}/upload/images/small/<?php echo $product->pro_img; ?>" alt="" width="50px" height="50px"/></td>
                                 <td>{{ucwords($product->name)}}</td>
                                
                                  <td>{{$product->id}}</td>

@@ -53,7 +53,7 @@
 
 
                         <div class="col-md-4">
-                            <img src="http://localhost/easyshop/upload/images/medium/<?php echo $product->pro_img; ?>" alt="" width="100px" height="100px"/>
+                            <img src="{{url('/')}}/upload/images/medium/<?php echo $product->pro_img; ?>" alt="" width="100px" height="100px"/>
                             <br>
                             <a href="{{url('/admin/EditImage')}}/{{$product->id}}">Change Image</a>
                         </div>

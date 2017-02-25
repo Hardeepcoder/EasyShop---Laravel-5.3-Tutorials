@@ -150,7 +150,7 @@
                 <div class="product-details"><!--product-details-->
                     <div class="col-sm-5">
                         <div class="view-product">
-                            <img src="http://localhost/easyshop/upload/images/large/<?php echo $value->pro_img; ?>" alt="" />
+                            <img src="{{url('/')}}/upload/images/large/<?php echo $value->pro_img; ?>" alt="" />
                             <h3>ZOOM</h3>
                         </div>
                         <div id="similar-product" class="carousel slide" data-ride="carousel">
@@ -158,13 +158,13 @@
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner">
                                 <div class="item active">
-                                    <img src="http://localhost/easyshop/upload/images/small/<?php echo $value->pro_img; ?>" alt="" />
+                                    <img src="{{url('/')}}/upload/images/small/<?php echo $value->pro_img; ?>" alt="" />
                                 </div>
                                 <div class="item">
-                                    <img src="http://localhost/easyshop/upload/images/small/<?php echo $value->pro_img; ?>" alt="" />
+                                    <img src="{{url('/')}}/upload/images/small/<?php echo $value->pro_img; ?>" alt="" />
                                 </div>
                                 <div class="item">
-                                    <img src="http://localhost/easyshop/upload/images/sma;ll/<?php echo $value->pro_img; ?>" alt="" />
+                                    <img src="{{url('/')}}/upload/images/sma;ll/<?php echo $value->pro_img; ?>" alt="" />
                                 </div>
 
                             </div>
