@@ -86,6 +86,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('addToWishList','HomeController@wishList');
 Route::get('/WishList','HomeController@View_wishList');
+
+Route::get('/removeWishList/{id}','HomeController@removeWishList');
 //Route::get('/admin', 'AdminController@index');
 
 

@@ -100,5 +100,13 @@ class HomeController extends Controller {
          $Products = DB::table('wishlist')->leftJoin('products', 'wishlist.pro_id', '=', 'products.id')->get();
          return view('front.wishList', compact('Products'));
     }
+    
+    public function removeWishList($id){
+       
+        DB::table('wishlist')->where('pro_id', '=', $id)->delete();
+        
+        return back()->with('msg', 'Item Removed from Wishlist');
+        
+    }
 
 }

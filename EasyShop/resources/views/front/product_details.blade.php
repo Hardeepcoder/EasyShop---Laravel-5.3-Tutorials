@@ -150,7 +150,7 @@
                 <div class="product-details"><!--product-details-->
                     <div class="col-sm-5">
                         <div class="view-product">
-                            <img src="{{url('/')}}/upload/images/large/<?php echo $value->pro_img; ?>" alt="" />
+                            <img src="{{url('../')}}/upload/images/large/<?php echo $value->pro_img; ?>" alt="" />
                             <h3>ZOOM</h3>
                         </div>
                         <div id="similar-product" class="carousel slide" data-ride="carousel">
@@ -204,14 +204,10 @@
 
                             <?php
                             $wishData = DB::table('wishlist')->leftJoin('products', 'wishlist.pro_id', '=', 'products.id')->where('wishlist.pro_id', '=',$value->id)->get();
-                           
-                            
+                                                
                             //if($wishData==""){ echo 'empty'; } else { echo 'filled';}
                             $count = App\wishList::where(['pro_id' => $value->id])->count();
                             ?>
-                            
-                          
-                           
                           <?php if($count=="0"){?>
                             <form action="{{url('/addToWishList')}}">
                                 {{ csrf_field() }}

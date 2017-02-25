@@ -155,7 +155,7 @@
             <div class="col-sm-9 padding-right">
                 <div class="features_items"><!--features_items-->
                     <h2 class="title text-center">
-                        <?php if (isset($msg)) { echo $msg;} else { ?> Features Item <?php } ?> </h2>
+                        <?php if (isset($msg)) { echo $msg;} else { ?> WishList Item <?php } ?> </h2>
                     
                     <?php if($Products->isEmpty()){?>
                     sorry, products not found
@@ -166,26 +166,26 @@
                             <div class="single-products">
                                 <div class="productinfo text-center">
                                     <a href="{{url('/product_details')}}">
-                                        <img src="{{url('/')}}/upload/images/large/<?php echo $product->pro_img; ?>" alt="" />
+                                        <img src="{{url('../')}}/upload/images/large/<?php echo $product->pro_img; ?>" alt="" />
                                     </a>
                                     <h2>$<?php echo $product->pro_price; ?></h2>
 
                                     <p><a href="{{url('/product_details')}}"><?php echo $product->pro_name; ?></a></p>
-                                    <a href="{{url('/cart/addItem')}}/<?php echo $product->id; ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                    <a href="{{url('/cart/addItem')}}/<?php echo $product->id; ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Move to cart</a>
                                 </div>
                                 <a href="{{url('/product_details')}}/<?php echo $product->id; ?>">
                                     <div class="product-overlay">
                                         <div class="overlay-content">
                                             <h2>$<?php echo $product->pro_price; ?></h2>
                                             <p><?php echo $product->pro_name; ?></p>
-                                            <a href="{{url('/cart/addItem')}}/<?php echo $product->id; ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            <a href="{{url('/cart/addItem')}}/<?php echo $product->id; ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Move to cart</a>
                                         </div>
                                     </div></a>
                             </div>
                             <div class="choose">
                                 <ul class="nav nav-pills nav-justified">
-                                    <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                    <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
+                                    <li><a href="{{url('/')}}/removeWishList/{{$product->id}}" style="color:red"><i class="fa fa-minus-square"></i>Remove from wishlist</a></li>
+                                   
                                 </ul>
                             </div>
                         </div>
