@@ -145,12 +145,12 @@
 
                 </div>
             </div>
-  @foreach($Products as $value)
+            @foreach($Products as $value)
             <div class="col-sm-9 padding-right">
                 <div class="product-details"><!--product-details-->
                     <div class="col-sm-5">
                         <div class="view-product">
-                            <img src="http://localhost/easyshop/upload/images/large/<?php echo $value->pro_img;?>" alt="" />
+                            <img src="http://localhost/easyshop/upload/images/large/<?php echo $value->pro_img; ?>" alt="" />
                             <h3>ZOOM</h3>
                         </div>
                         <div id="similar-product" class="carousel slide" data-ride="carousel">
@@ -158,13 +158,13 @@
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner">
                                 <div class="item active">
-                                    <img src="http://localhost/easyshop/upload/images/small/<?php echo $value->pro_img;?>" alt="" />
+                                    <img src="http://localhost/easyshop/upload/images/small/<?php echo $value->pro_img; ?>" alt="" />
                                 </div>
                                 <div class="item">
-                                    <img src="http://localhost/easyshop/upload/images/small/<?php echo $value->pro_img;?>" alt="" />
+                                    <img src="http://localhost/easyshop/upload/images/small/<?php echo $value->pro_img; ?>" alt="" />
                                 </div>
                                 <div class="item">
-                                  <img src="http://localhost/easyshop/upload/images/sma;ll/<?php echo $value->pro_img;?>" alt="" />
+                                    <img src="http://localhost/easyshop/upload/images/sma;ll/<?php echo $value->pro_img; ?>" alt="" />
                                 </div>
 
                             </div>
@@ -180,27 +180,51 @@
 
                     </div>
                     <div class="col-sm-7">
-                      
-                            <div class="product-information"><!--/product-information-->
-                                <img src=""  class="newarrival" alt="" />
-                                <h2><?php echo ucwords($value->pro_name);?></h2>
-                                <p>Web ID: <?php echo $value->pro_code;?></p>
-                                <img src="" alt="" />
-                                <span>
-                                    <span>US $<?php echo $value->pro_price;?></span>
-                                    <label>Quantity:</label>
-                                    <input type="text" value="3" />
-                                    <button type="button" class="btn btn-fefault cart">
-                                        <i class="fa fa-shopping-cart"></i>
-                                        Add to cart
-                                    </button>
-                                </span>
-                                <p><b>Availability:</b> In Stock</p>
-                                <p><b>Condition:</b> New</p>
-                                <p><b>Brand:</b> E-SHOPPER</p>
-                                <a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>
-                            </div><!--/product-information-->
-                      
+
+                        <div class="product-information"><!--/product-information-->
+                            <img src=""  class="newarrival" alt="" />
+                            <h2><?php echo ucwords($value->pro_name); ?></h2>
+                            <p>Web ID: <?php echo $value->pro_code; ?></p>
+                            <img src="" alt="" />
+                            <span>
+                                <span>US $<?php echo $value->pro_price; ?></span>
+                                <label>Quantity:</label>
+                                <input type="text" value="3" />
+                                <button type="button" class="btn btn-fefault cart">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    Add to cart
+                                </button>
+
+
+                            </span>
+                            <p><b>Availability:</b> In Stock</p>
+                            <p><b>Condition:</b> New</p>
+                            <p><b>Brand:</b> E-SHOPPER</p>
+                            <a href=""><img src="{{url('/')}}/theme/images/product-details/share.png" class="share img-responsive"  alt="" /></a>
+
+                            <?php
+                            $wishData = DB::table('wishlist')->leftJoin('products', 'wishlist.pro_id', '=', 'products.id')->where('wishlist.pro_id', '=',$value->id)->get();
+                           
+                            
+                            //if($wishData==""){ echo 'empty'; } else { echo 'filled';}
+                            $count = App\wishList::where(['pro_id' => $value->id])->count();
+                            ?>
+                            
+                          
+                           
+                          <?php if($count=="0"){?>
+                            <form action="{{url('/addToWishList')}}">
+                                {{ csrf_field() }}
+                                <input type="hidden" value="{{$value->id}}" name="pro_id"/>
+                                <input type="submit" value="Add to WishList" class="btn btn-success"/>
+                            </form>
+                          <?php } else {?>
+                            <h5 style="color:green"> Added to <a href="{{url('/WishList')}}">wishList</a></h5>
+                          <?php }?>
+
+
+                        </div><!--/product-information-->
+
                     </div>
                 </div><!--/product-details-->
 
@@ -486,8 +510,8 @@
                 </div><!--/recommended_items-->
 
             </div>
-  
-  @endforeach;
+
+            @endforeach;
         </div>
     </div>
 </section>

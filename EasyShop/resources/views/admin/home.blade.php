@@ -15,7 +15,7 @@
                               {!! Form::open(['url' => 'admin/add_product',  'method' => 'post', 'enctype' => 'multipart/form-data']) !!}
                            
                                 <div class="panel-options">
-                                    <input type="submit" value="Submit" class="btn btn-primary">
+                                    <input type="submit" value="Submit" class="btn btn-primary pull-right">
                                 </div>
                         </div>
                         <div class="panel-body">

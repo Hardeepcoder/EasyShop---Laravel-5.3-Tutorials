@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Mail;
 use App\Mail\contacts;
+use App\wishList;
 
 class HomeController extends Controller {
     /**
@@ -76,6 +78,27 @@ class HomeController extends Controller {
         $mail = 'hardeepphp@yahoo.com';
         Mail::to($mail)->send(new contacts);
         dd('mail sent');
+    }
+
+    public function wishList(Request $request) {
+
+
+        $wishList = new wishList;
+        $wishList->user_id = Auth::user()->id;
+        $wishList->pro_id = $request->pro_id;
+
+        $wishList->save();
+
+         $Products = DB::table('products')->where('id', $request->pro_id)->get();
+        //$Products = DB::table('wishlist')->leftJoin('products', 'wishlist.pro_id', '=', 'products.ic')->get();
+
+        return view('front.product_details', compact('Products'));
+    }
+    
+    public function View_wishList(){
+        
+         $Products = DB::table('wishlist')->leftJoin('products', 'wishlist.pro_id', '=', 'products.id')->get();
+         return view('front.wishList', compact('Products'));
     }
 
 }
