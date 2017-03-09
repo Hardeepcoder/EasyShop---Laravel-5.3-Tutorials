@@ -150,7 +150,7 @@
                 <div class="product-details"><!--product-details-->
                     <div class="col-sm-5">
                         <div class="view-product">
-                            <img src="{{url('../')}}/upload/images/large/<?php echo $value->pro_img; ?>" alt="" />
+                            <img src="<?php echo $value->pro_img; ?>" alt="" />
                             <h3>ZOOM</h3>
                         </div>
                         <div id="similar-product" class="carousel slide" data-ride="carousel">
@@ -158,13 +158,13 @@
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner">
                                 <div class="item active">
-                                    <img src="{{url('/')}}/upload/images/small/<?php echo $value->pro_img; ?>" alt="" />
+                                    <img src="<?php echo $value->pro_img; ?>" alt="" />
                                 </div>
                                 <div class="item">
-                                    <img src="{{url('/')}}/upload/images/small/<?php echo $value->pro_img; ?>" alt="" />
+                                    <img src="<?php echo $value->pro_img; ?>" alt="" />
                                 </div>
                                 <div class="item">
-                                    <img src="{{url('/')}}/upload/images/sma;ll/<?php echo $value->pro_img; ?>" alt="" />
+                                    <img src="<?php echo $value->pro_img; ?>" alt="" />
                                 </div>
 
                             </div>
@@ -203,20 +203,22 @@
                             <a href=""><img src="{{url('/')}}/theme/images/product-details/share.png" class="share img-responsive"  alt="" /></a>
 
                             <?php
+                            if(Auth::check()){
                             $wishData = DB::table('wishlist')->leftJoin('products', 'wishlist.pro_id', '=', 'products.id')->where('wishlist.pro_id', '=',$value->id)->get();
                                                 
                             //if($wishData==""){ echo 'empty'; } else { echo 'filled';}
                             $count = App\wishList::where(['pro_id' => $value->id])->count();
                             ?>
                           <?php if($count=="0"){?>
-                            <form action="{{url('/addToWishList')}}">
+                            <form action="{{url('/addToWishList')}}" method="post">
                                 {{ csrf_field() }}
                                 <input type="hidden" value="{{$value->id}}" name="pro_id"/>
                                 <input type="submit" value="Add to WishList" class="btn btn-success"/>
                             </form>
                           <?php } else {?>
                             <h5 style="color:green"> Added to <a href="{{url('/WishList')}}">wishList</a></h5>
-                          <?php }?>
+                          <?php }
+                            }?>
 
 
                         </div><!--/product-information-->

@@ -18,10 +18,10 @@
             <script src="js/respond.min.js"></script>
             <![endif]-->       
         <link rel="shortcut icon" href="{{asset('theme/images/ico/favicon.ico')}}">
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{url('../')}}/theme/images/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{url('../')}}/theme/images/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{url('../')}}/theme/images/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="{{url('../')}}/theme/images/ico/apple-touch-icon-57-precomposed.png">
     </head><!--/head-->
 
     <body>
@@ -33,7 +33,7 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="logo pull-left">
-                                <a href="{{url('/')}}"><img src="{{('theme/images/home/logo.png')}}" alt="" /></a>
+                                <a href="{{url('/')}}"><img src="{{url('../')}}/theme/images/home/logo.png" alt="" /></a>
                             </div>
                             <div class="btn-group pull-right">
                                 <div class="btn-group">
@@ -62,18 +62,18 @@
                         <div class="col-sm-8">
                             <div class="shop-menu pull-right">
                                 <ul class="nav navbar-nav">
-                                 <?php if(Auth::check()){?>
-                                    <li><a href="{{url('/')}}/profile"><i class="fa fa-user"></i>{{ucwords(Auth::user()->name)}}</a></li>
-                                 <?php }?>
+                                    <?php if (Auth::check()) { ?>
+                                        <li><a href="{{url('/')}}/profile"><i class="fa fa-user"></i>{{ucwords(Auth::user()->name)}}</a></li>
+                                    <?php } ?>
                                     <li><a href="{{url('/WishList')}}"><i class="fa fa-star"></i> Wishlist <span style="color:green; font-weight: bold">({{App\wishList::count()}})</span> </a></li>
                                     <li><a href="{{url('/checkout')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                                     <li><a href="{{url('/cart')}}"><i class="fa fa-shopping-cart"></i> Cart <span style="color:green; font-weight: bold">({{Cart::count()}})</span><br>
-                                    <p align="center" style="color:green; font-weight:bold">({{Cart::subtotal()}})</p></a></li>
-                               <?php if(Auth::check()){?>
-                                    <li><a href="{{url('/logout')}}"><i class="fa fa-lock"></i> Logout</a></li>
-                               <?php } else {?>
-                                    <li><a href="{{url('/login')}}"><i class="fa fa-lock"></i> Login</a></li>
-                               <?php }?>
+                                            <p align="center" style="color:green; font-weight:bold">({{Cart::subtotal()}})</p></a></li>
+                                    <?php if (Auth::check()) { ?>
+                                        <li><a href="{{url('/logout')}}"><i class="fa fa-lock"></i> Logout</a></li>
+                                    <?php } else { ?>
+                                        <li><a href="{{url('/login')}}"><i class="fa fa-lock"></i> Login</a></li>
+                                    <?php } ?>
                                 </ul>
                             </div>
                         </div>
@@ -81,7 +81,7 @@
                 </div>
             </div><!--/header-middle-->
 
-        @include('front.menu')
+            @include('front.menu')
         </header><!--/header-->
         @yield('content')
 
@@ -100,7 +100,7 @@
                                 <div class="video-gallery text-center">
                                     <a href="#">
                                         <div class="iframe-img">
-                                            <img src="images/home/iframe1.png" alt="" />
+                                            <img src="{{url('../')}}/theme/images/home/iframe1.png" alt="" />
                                         </div>
                                         <div class="overlay-icon">
                                             <i class="fa fa-play-circle-o"></i>
@@ -115,7 +115,7 @@
                                 <div class="video-gallery text-center">
                                     <a href="#">
                                         <div class="iframe-img">
-                                            <img src="images/home/iframe2.png" alt="" />
+                                            <img src="{{url('../')}}/theme/images/home/iframe2.png" alt="" />
                                         </div>
                                         <div class="overlay-icon">
                                             <i class="fa fa-play-circle-o"></i>
@@ -130,7 +130,7 @@
                                 <div class="video-gallery text-center">
                                     <a href="#">
                                         <div class="iframe-img">
-                                            <img src="images/home/iframe3.png" alt="" />
+                                            <img src="{{url('../')}}/theme/images/home/iframe3.png" alt="" />
                                         </div>
                                         <div class="overlay-icon">
                                             <i class="fa fa-play-circle-o"></i>
@@ -145,7 +145,7 @@
                                 <div class="video-gallery text-center">
                                     <a href="#">
                                         <div class="iframe-img">
-                                            <img src="images/home/iframe4.png" alt="" />
+                                            <img src="{{url('../')}}/theme/images/home/iframe4.png" alt="" />
                                         </div>
                                         <div class="overlay-icon">
                                             <i class="fa fa-play-circle-o"></i>
@@ -158,7 +158,7 @@
                         </div>
                         <div class="col-sm-3">
                             <div class="address">
-                                <img src="images/home/map.png" alt="" />
+                                <img src="{{url('../')}}/theme/images/home/map.png" alt="" />
                                 <p>505 S Atlantic Ave Virginia Beach, VA(Virginia)</p>
                             </div>
                         </div>
@@ -244,12 +244,6 @@
         </footer><!--/Footer-->
 
 
-        <script src="{{asset('theme/js/jquery.js')}}"></script>
-        <script src="{{asset('theme/js/bootstrap.min.js')}}"></script>
-        <script src="{{asset('theme/js/jquery.scrollUp.min.js')}}"></script>
-        <script src="{{asset('theme/js/price-range.js')}}"></script>
-        <script src="{{asset('theme/js/jquery.prettyPhoto.js')}}"></script>
-        <script src="{{asset('theme/js/main.js')}}"></script>
     </body>
 </html>
 
