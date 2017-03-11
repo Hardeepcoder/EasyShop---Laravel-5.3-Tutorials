@@ -13,6 +13,7 @@
         <link href="{{asset('theme/css/animate.css')}}" rel="stylesheet">
         <link href="{{asset('theme/css/main.css')}}" rel="stylesheet">
         <link href="{{asset('theme/css/responsive.css')}}" rel="stylesheet">
+          <link href="{{asset('theme/css/jquery-ui.css')}}" rel="stylesheet">
         <!--[if lt IE         9]>
             <script src="js/html5shiv.js"></script>
             <script src="js/respond.min.js"></script>
@@ -22,6 +23,75 @@
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{url('../')}}/theme/images/ico/apple-touch-icon-114-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{url('../')}}/theme/images/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="{{url('../')}}/theme/images/ico/apple-touch-icon-57-precomposed.png">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+<style>
+    .brandLi{
+        padding:10px;
+    }
+    .brandLi b{ font-size:16px; color:#FE980F}
+ 
+    </style>
+
+
+
+
+<script>
+    
+    $(function () {
+        $("#slider-range").slider({
+            range: true,
+            min: 0,
+            max: 100,
+            values: [15, 65],
+            slide: function (event, ui) {
+
+                $("#amount_start").val(ui.values[ 0 ]);
+                $("#amount_end").val(ui.values[ 1 ]);
+                var start = $('#amount_start').val();
+                var end = $('#amount_end').val();
+
+                $.ajax({
+                    type: 'get',
+                    dataType: 'html',
+                    url: '',
+                    data: "start=" + start + "& end=" + end,
+                    success: function (response) {
+                        console.log(response);
+                        $('#updateDiv').html(response);
+                    }
+                });
+            }
+        });
+        
+        $('.try').click(function(){
+            
+            //alert('hardeep');
+            
+            var brand = [];
+            $('.try').each(function(){
+                if($(this).is(":checked")){
+                    
+                    brand.push($(this).val());
+                }
+            });
+            Finalbrand  = brand.toString();
+           
+            $.ajax({
+                    type: 'get',
+                    dataType: 'html',
+                    url: '',
+                    data: "brand=" + Finalbrand,
+                    success: function (response) {
+                        console.log(response);
+                        $('#updateDiv').html(response);
+                    }
+                });
+           
+        });
+       });
+</script>
     </head><!--/head-->
 
     <body>
@@ -243,7 +313,7 @@
 
         </footer><!--/Footer-->
 
-
+<script src="{{asset('theme/js/bootstrap.min.js')}}"></script>
     </body>
 </html>
 

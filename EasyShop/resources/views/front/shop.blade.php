@@ -1,73 +1,7 @@
 @extends('front.master')
 
 @section('content')
-<style>
-    .brandLi{
-        padding:10px;
-    }
-    .brandLi b{ font-size:16px; color:#FE980F}
-    </style>
-    
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-<script>
-    
-    $(function () {
-        $("#slider-range").slider({
-            range: true,
-            min: 0,
-            max: 100,
-            values: [15, 65],
-            slide: function (event, ui) {
-
-                $("#amount_start").val(ui.values[ 0 ]);
-                $("#amount_end").val(ui.values[ 1 ]);
-                var start = $('#amount_start').val();
-                var end = $('#amount_end').val();
-
-                $.ajax({
-                    type: 'get',
-                    dataType: 'html',
-                    url: '',
-                    data: "start=" + start + "& end=" + end,
-                    success: function (response) {
-                        console.log(response);
-                        $('#updateDiv').html(response);
-                    }
-                });
-            }
-        });
-        
-        $('.try').click(function(){
-            
-            //alert('hardeep');
-            
-            var brand = [];
-            $('.try').each(function(){
-                if($(this).is(":checked")){
-                    
-                    brand.push($(this).val());
-                }
-            });
-            Finalbrand  = brand.toString();
-           
-            $.ajax({
-                    type: 'get',
-                    dataType: 'html',
-                    url: '',
-                    data: "brand=" + Finalbrand,
-                    success: function (response) {
-                        console.log(response);
-                        $('#updateDiv').html(response);
-                    }
-                });
-           
-        });
-       });
-</script>
 <section id="advertisement">
     <div class="container">
         <img src="{{asset('theme/images/shop/advertisement.jpg')}}" alt="" />
