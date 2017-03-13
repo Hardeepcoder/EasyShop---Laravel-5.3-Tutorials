@@ -1,17 +1,5 @@
 <?php
 
-/*
-  |--------------------------------------------------------------------------
-  | Web Routes
-  |--------------------------------------------------------------------------
-  |
-  | This file is where you may define all of the routes that are handled
-  | by your application. Just tell Laravel the URIs it should respond
-  | to using a Closure or controller method. Build something great!
-  |
- */
-Route::get('/test', 'HomeController@test');
-
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 
@@ -72,37 +60,27 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
 
     Route::Post('/catForm', 'AdminController@catForm');
     Route::get('/categories', 'AdminController@view_cats');
-    Route::get('/CatEditForm/ {
-    id
-}', 'AdminController@CatEditForm');
+    Route::get('/CatEditForm/{id}', 'AdminController@CatEditForm');
 
     Route::post('/editCat', 'AdminController@editCat');
 
 
-    Route::get('ProductEditForm/ {
-    id
-}', 'AdminController@ProductEditForm');
+    Route::get('ProductEditForm/{id}', 'AdminController@ProductEditForm');
 
 
     Route::post('editProduct', 'AdminController@editProduct');
 
-    Route::get('EditImage/ {
-    id
-}', 'AdminController@ImageEditForm');
+    Route::get('EditImage/{id}', 'AdminController@ImageEditForm');
 
     Route::post('editProImage', 'AdminController@editProImage');
 
-    Route::get('deleteCat/ {
-    id
-}', 'AdminController@deleteCat');
+    Route::get('deleteCat/{id}', 'AdminController@deleteCat');
 });
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::post('addToWishList', 'HomeController@wishList');
 Route::get('/WishList', 'HomeController@View_wishList');
 
-Route::get('/removeWishList/ {
-    id
-}', 'HomeController@removeWishList');
+Route::get('/removeWishList/{id}', 'HomeController@removeWishList');
 //Route::get('/admin', 'AdminController@index');
 
 
