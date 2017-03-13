@@ -47,11 +47,11 @@
 
                         <tr>
                             <td class="cart_product">
-                                <a href=""><img src="http://localhost/easyshop/upload/images/{{$cartItem->options->img}}" alt="" width="200px"></a>
+                                <a href="{{url('/product_details')}}/{{$cartItem->id}}"><img src="{{$cartItem->options->img}}" alt="" width="200px"></a>
                             </td>
                             <td class="cart_description">
-                                <h4><a href="">{{$cartItem->name}}</a></h4>
-                                <p>Web ID: {{$cartItem->id}}</p>
+                                <h4><a href="{{url('/product_details')}}/{{$cartItem->id}}" style="color:blue">{{$cartItem->name}}</a></h4>
+                                <p>Product ID: {{$cartItem->id}}</p>
                             </td>
                             <td class="cart_price">
                                 <p>${{$cartItem->price}}</p>
@@ -59,13 +59,19 @@
                             <td class="cart_quantity">
                                 <div class="cart_quantity_button">
                                     {!! Form::open(['url' => ['cart/update',$cartItem->rowId], 'method'=>'put']) !!}
-                                    <input type="button" value="-" id="moins{{$cartItem->id}}" onclick="minus{{$cartItem->id}}()" class="cart_quantity_down">
-                                    <input type="text" size="3" value="{{$cartItem->qty}}" name="qty" id="count{{$cartItem->id}}" autocomplete="off" style="text-align:center" >
-                                    <input type="button" value="+" id="plus{{$cartItem->id}}" onclick="plus{{$cartItem->id}}()" class="cart_quantity_up">
+                                   <?php /*
+                                    *  <input type="button" value="-" id="moins{{$cartItem->id}}" onclick="minus{{$cartItem->id}}()" class="cart_quantity_down">
+                                    */?>
+                                    <input type="number" size="2" value="{{$cartItem->qty}}" name="qty" id="count{{$cartItem->id}}"
+                                           autocomplete="off" style="text-align:center; max-width:50px; "  MIN="1" MAX="30">
+                                  <?php /*
+                                   *   <input type="button" value="+" id="plus{{$cartItem->id}}" onclick="plus{{$cartItem->id}}()" class="cart_quantity_up">
+                                   */?>
 
-
-                                    <br>
-                                    <input type="submit" value="Update" class="btn btn-primary" style="margin:5px">
+                                    <button type="submit" class="btn btn-success btn-sm" title="Update Count"> 
+    <span class="glyphicon glyphicon-edit"></span></button>
+                                   
+                                  
                                     {!! Form::close() !!}
                                 </div>
                             </td>
@@ -73,7 +79,8 @@
                                 <p class="cart_total_price">${{$cartItem->subtotal}}</p>
                             </td>
                             <td class="cart_delete">
-                                <a class="cart_quantity_delete" href="{{url('/cart/remove')}}/{{$cartItem->rowId}}"><i class="fa fa-times"></i></a>
+                                <a class="cart_quantity_delete" style="background-color:red"
+                                   href="{{url('/cart/remove')}}/{{$cartItem->rowId}}"><i class="fa fa-times"></i></a>
                             </td>
                         </tr>
 

@@ -6,15 +6,20 @@ $products1 = DB::table('recommends')
         ->orderby('total','DESC')
         ->take(3)
         ->get();
-
-
+if(Auth::check()){
  $products2 = DB::table('recommends')
          ->leftJoin('products','recommends.pro_id','products.id')     
          ->where('uid',Auth::user()->id)
          ->inRandomOrder()
         ->take(3)
         ->get();
-       
+}else{
+ $products2 = DB::table('recommends')
+         ->leftJoin('products','recommends.pro_id','products.id')
+         ->inRandomOrder()
+        ->take(3)
+        ->get();
+}    
 ?>
 <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
                                 <div class="carousel-inner">
@@ -27,8 +32,7 @@ $products1 = DB::table('recommends')
                                                        <a href="{{url('/product_details')}}/{{$p->pro_id}}"> 
                                                            <img src="{{$p->pro_img}}" alt="" /></a>
                                                         <h2>${{$p->pro_price}}</h2>
-                                                        <p>  <a href="{{url('/product_details')}}/{{$p->pro_id}}"> 
-                                                                  {{$p->pro_name}}  {{$p->pro_id}}</a></p>
+                                                        <p>  <a href="{{url('/product_details')}}/{{$p->pro_id}}">{{$p->pro_name}}</a></p>
                                                         <a href="{{url('/cart/addItem')}}/{{$p->pro_id}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                                     </div>
 
@@ -46,8 +50,7 @@ $products1 = DB::table('recommends')
                                                         <a href="{{url('/product_details')}}/{{$p->pro_id}}"> 
                                                             <img src="{{$p->pro_img}}" alt="" /></a>
                                                         <h2>${{$p->pro_price}}</h2>
-                                                        <p>  <a href="{{url('/product_details')}}/{{$p->pro_id}}"> 
-                                                                  {{$p->pro_name}}  {{$p->pro_id}}</a></p>
+                                                        <p>  <a href="{{url('/product_details')}}/{{$p->pro_id}}">{{$p->pro_name}}</a></p>
                                                         <a href="{{url('/cart/addItem')}}/{{$p->pro_id}}" class="btn btn-default add-to-cart">
                                                             <i class="fa fa-shopping-cart"></i>
                                                             Add to cart</a>
