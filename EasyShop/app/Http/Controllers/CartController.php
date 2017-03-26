@@ -15,7 +15,7 @@ class CartController extends Controller
     public function addItem($id){
         $products = products::find($id); // get prodcut by id
         
-        Cart::add($id,$products->pro_name, 1, $products->pro_price, ['img' => $products->pro_img]);
+        Cart::add($id,$products->pro_name, 1, $products->pro_price, ['img' => $products->pro_img,'stock' => $products->stock]);
          return back(); 
     }
     
@@ -26,10 +26,23 @@ class CartController extends Controller
     
     public function update(Request $request, $id)
     {
-        
-     //dd($request->qty);
-          Cart::update($id,$request->qty);
-         return back(); 
+        $qty = $request->qty;
+        $proId = $request->proId;
+         $products = products::find($proId);
+        $stock = $products->stock;
+     
+      
+        if($qty<$stock){
+            
+            $msg = 'Cart is updated';
+           Cart::update($id,$request->qty);
+           return back()->with('status',$msg); 
+           
+        }else{
+             $msg = 'Please check your qty is more than product stock';
+              return back()->with('error',$msg); 
+        }
+ 
     }
   
 }

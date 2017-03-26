@@ -25,6 +25,7 @@ Route::get('/cart/addItem/{id}', 'CartController@addItem');
 Route::get('/cart/remove/{id}', 'CartController@destroy');
 Route::put('/cart/update/{id}', 'CartController@update');
 
+
 // logged in user pages
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/checkout', 'CheckoutController@index');
@@ -50,10 +51,11 @@ Route::group(['middleware' => 'auth'], function() {
 
 Auth::routes();
 
+//admin links
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function() {
     Route::get('/', 'AdminController@index');
 
-    Route::get('/addProduct', 'AdminController@index');
+    Route::get('/addProduct', 'AdminController@addpro_form');
     Route::get('/products', 'AdminController@view_products');
 
     Route::get('/addCat', 'AdminController@add_cat');
@@ -75,6 +77,23 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     Route::post('editProImage', 'AdminController@editProImage');
 
     Route::get('deleteCat/{id}', 'AdminController@deleteCat');
+
+    Route::get('/addProperty/{id}', function($id){
+
+      return view('admin.addProperty')->with('id', $id);
+
+    });
+
+    Route::get('/addPropertyAll', function(){
+
+      return view('admin.addProperty');
+
+    });
+
+
+
+    Route::post('sumbitProperty','AdminController@sumbitProperty');
+
 });
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::post('addToWishList', 'HomeController@wishList');
@@ -82,5 +101,3 @@ Route::get('/WishList', 'HomeController@View_wishList');
 
 Route::get('/removeWishList/{id}', 'HomeController@removeWishList');
 //Route::get('/admin', 'AdminController@index');
-
-

@@ -32,7 +32,7 @@
                             <span style="color:red">{{ $errors->first('fullname') }}</span>
                             <hr>
 
-                            <input type="text" placeholder="State Name" name="state" class="form-control" value="{{ old('state') }}">                                
+                            <input type="text" placeholder="State Name" name="state" class="form-control" value="{{ old('state') }}">
 
                             <span style="color:red">{{ $errors->first('state') }}</span>
 
@@ -72,12 +72,12 @@
                             <p>Shipping Order</p>
                             <textarea name="message"  placeholder="Notes about your order, Special Notes for Delivery" rows="16"></textarea>
                             <label><input type="checkbox"> Shipping to bill address</label>
-                        </div>	
-                    </div>					
+                        </div>
+                    </div>
                 </div>
             </div>
-      
-        <?php // form end here?>  
+
+        <?php // form end here?>
 
         <div class="review-payment">
             <h2>Review & Payment</h2>
@@ -138,7 +138,7 @@
                                 </tr>
                                 <tr class="shipping-cost">
                                     <td>Shipping Cost</td>
-                                    <td>Free</td>										
+                                    <td>Free</td>
                                 </tr>
                                 <tr>
                                     <td>Total</td>
@@ -153,20 +153,43 @@
         </div>
         <div class="payment-options">
             <span>
-                <input type="radio" name="pay" value="COD" checked="checked"> COD   
-
+                <input type="radio" name="pay" value="COD" checked="checked" id="cash"> COD
+            
             </span>
             <span>
-                <input type="radio" name="pay" value="paypal"> PayPal
-
+                <input type="radio" name="pay" value="paypal" id="paypal"> PayPal
+                @include('front.paypal')
             </span>
+            
             <span>
-                <div align="right">  <input type="submit" value="Continue" class="btn btn-primary"></div>
+            <input type="submit" value="COD" class="btn btn-primary" id="cashbtn">
             </span>
         </div>
     </div>
-    
+
       </form>
+
+
+
+
+
+        <script>
+            
+            $('#paypalbtn').hide();
+          //  $('#cashbtn').hide();
+            
+            $(':radio[id=paypal]').change(function(){
+                $('#paypalbtn').show();
+                $('#cashbtn').hide();           
+                
+            });
+            
+              $(':radio[id=cash]').change(function(){
+                $('#paypalbtn').hide();
+                $('#cashbtn').show();           
+                
+            });
+            </script>
 </section> <!--/#cart_items-->
 
 

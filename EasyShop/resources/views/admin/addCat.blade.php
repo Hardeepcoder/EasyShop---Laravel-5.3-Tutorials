@@ -3,12 +3,11 @@
 @section('content')
 
 
-<div class="page-content">
-    <div class="row">
+  <section id="container" class="">
         @include('admin.sidebar')
-        <div class="col-md-10">
+        <section id="main-content">
+            <section class="wrapper">
 
-            <div class="row">
 
                 <div class="content-box-large">
                     <h1>Add Category</h1>
@@ -32,10 +31,8 @@
                     </table>
                 </div>
 
-
-            </div>
-        </div>
-    </div>
-</div>
+            </section>
+      </section>
+</section>
 
 @endsection

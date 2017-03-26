@@ -3,12 +3,10 @@
 @section('content')
 
 
-<div class="page-content">
-    <div class="row">
+  <section id="container" class="">
         @include('admin.sidebar')
-        <div class="col-md-10">
-
-            <div class="row">
+        <section id="main-content">
+            <section class="wrapper">
 
                 <div class="content-box-large">
                     <h1>Add Category</h1>
@@ -24,10 +22,10 @@
 
                         <tr>
                             <td> Catgeory Status:</td>
-                            <td>  
+                            <td>
                                 <select name="status" class="form-control">
-                                    <option value="0"  <?php if($cat->status=='0'){?>  selected="selected" <?php }?>>Enable</option>                                      
-                                    <option value="1" <?php if($cat->status=='1'){?> selected="selected" <?php }?>>Disable</option>      
+                                    <option value="0"  <?php if($cat->status=='0'){?>  selected="selected" <?php }?>>Enable</option>
+                                    <option value="1" <?php if($cat->status=='1'){?> selected="selected" <?php }?>>Disable</option>
 
                                 </select>
                             </td>
@@ -47,9 +45,7 @@
                 </div>
 
 
-            </div>
-        </div>
-    </div>
-</div>
-
+          </section>
+        </section>
+</section>
 @endsection

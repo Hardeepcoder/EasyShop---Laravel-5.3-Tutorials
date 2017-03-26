@@ -2,13 +2,10 @@
 
 @section('content')
 
-
-<div class="page-content">
-    <div class="row">
+  <section id="container" class="">
         @include('admin.sidebar')
-        <div class="col-md-10">
-
-            <div class="row">
+        <section id="main-content">
+            <section class="wrapper">
 
                 <div class="content-box-large">
                     <h1>View Categories</h1>
@@ -37,7 +34,7 @@
                                 <td><a href="{{url('/')}}/admin/CatEditForm/{{$cat->id}}" class="btn btn-info btn-small">Edit</a></td>
                                 <td><a href="{{url('/admin/deleteCat')}}/{{$cat->id}}" class="btn btn-danger">Remove</a></td>
                             </tr>
-                        </tbody> 
+                        </tbody>
                         @endforeach
                     </table>
 
@@ -45,9 +42,8 @@
 
 
 
-            </div>
-        </div>
-    </div>
-</div>
+        </section>
+      </section>
+  </section>
 
 @endsection

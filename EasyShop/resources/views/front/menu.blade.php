@@ -45,8 +45,10 @@
             </div>
             <div class="col-sm-3">
                 <div class="search_box pull-right">
+                    
+                    
                     <form action='{{url('/search')}}' method="post">
-                        <input type="text" placeholder="Search" name="search_data"/>
+                        <input type="text" placeholder="Search" name="search_data" id="proList"/>
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                     </form>

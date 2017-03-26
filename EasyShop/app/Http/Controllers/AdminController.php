@@ -8,13 +8,19 @@ use Illuminate\Http\Request;
 use Storage;
 use App\pro_cat;
 use Image;
+use App\products_properties;
 
 class AdminController extends Controller {
 
     public function index() {
-        $cat_data = DB::table('pro_cat')->get();
 
-        return view('admin.home', compact('cat_data'));
+    return view('admin.index');
+    }
+
+    public function addpro_form(){
+      $cat_data = DB::table('pro_cat')->get();
+
+      return view('admin.home', compact('cat_data'));
     }
 
     public function add_product(Request $request) {
@@ -150,8 +156,8 @@ class AdminController extends Controller {
         $img->resize(100, 100)->save($S_path . '/' . $filename);
         $img->resize(500, 500)->save($M_path . '/' . $filename);
         $img->resize(1000, 1000)->save($L_path . '/' . $filename);
-        
-        
+
+
 
        // $file->move($path, $filename);
 
@@ -175,5 +181,17 @@ class AdminController extends Controller {
         return view('admin.categories', compact('cats'));
     }
 
-    // displaying cats in edit form of products
+  public function sumbitProperty(Request $request){
+
+    $properties = new products_properties;
+    $properties->pro_id = $request->pro_id;
+    $properties->size = $request->size;
+    $properties->color = $request->color;
+    $properties->p_price = $request->p_price;
+    $properties->save();
+
+    return redirect('/admin/products');
+
+
+  }
 }
