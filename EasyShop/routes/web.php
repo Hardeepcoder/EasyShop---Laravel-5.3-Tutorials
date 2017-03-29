@@ -8,6 +8,7 @@ Route::get('/range', function() {
 });
 
 Route::get('/product_details/{id}', 'HomeController@product_details');
+Route::get('selectSize', 'HomeController@selectSize');
 
 Route::get('/logout', 'Auth\LoginController@logout');
 
@@ -23,7 +24,7 @@ Route::get('/cart', 'CartController@index');
 Route::get('/cart/addItem/{id}', 'CartController@addItem');
 
 Route::get('/cart/remove/{id}', 'CartController@destroy');
-Route::put('/cart/update/{id}', 'CartController@update');
+Route::get('/cart/update/{id}', 'CartController@update');
 
 
 // logged in user pages

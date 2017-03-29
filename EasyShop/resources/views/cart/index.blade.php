@@ -2,8 +2,37 @@
 
 @section('content')
 
+<script>
+$(document).ready(function(){
+<?php for($i=1;$i<20;$i++){?>
+  $('#upCart<?php echo $i;?>').on('change keyup', function(){
+
+  var newqty = $('#upCart<?php echo $i;?>').val();
+  var rowId = $('#rowId<?php echo $i;?>').val();
+  var proId = $('#proId<?php echo $i;?>').val();
+
+   if(newqty <=0){ alert('enter only valid qty') }
+  else {
+
+    $.ajax({
+        type: 'get',
+        dataType: 'html',
+        url: '<?php echo url('/cart/update');?>/'+proId,
+        data: "qty=" + newqty + "& rowId=" + rowId + "& proId=" + proId,
+        success: function (response) {
+            console.log(response);
+            $('#updateDiv').html(response);
+        }
+    });
+  }
+
+  });
+  <?php } ?>
+});
 
 
+
+</script>
 <?php if ($cartItems->isEmpty()) { ?>
     <section id="cart_items">
         <div class="container">
@@ -28,6 +57,22 @@
                 </ol>
             </div>
 
+<div id="updateDiv">
+                            @if(session('status'))
+                                    <div class="alert alert-success">
+
+                                        {{session('status')}}
+                                    </div>
+                                    @endif
+
+                                      @if(session('error'))
+                                    <div class="alert alert-danger">
+
+                                        {{session('error')}}
+                                    </div>
+                                    @endif
+
+
             <div class="table-responsive cart_info">
                 <table class="table table-condensed">
                     <thead>
@@ -40,9 +85,10 @@
                             <td></td>
                         </tr>
                     </thead>
+                    <?php $count =1;?>
                     @foreach($cartItems as $cartItem)
-                    
-              
+
+
                     <tbody>
 
                         <tr>
@@ -52,27 +98,21 @@
                             <td class="cart_description">
                                 <h4><a href="{{url('/product_details')}}/{{$cartItem->id}}" style="color:blue">{{$cartItem->name}}</a></h4>
                                 <p>Product ID: {{$cartItem->id}}</p>
+                                 <p>Only {{$cartItem->options->stock}} left</p>
                             </td>
                             <td class="cart_price">
                                 <p>${{$cartItem->price}}</p>
                             </td>
                             <td class="cart_quantity">
                                 <div class="cart_quantity_button">
-                                    {!! Form::open(['url' => ['cart/update',$cartItem->rowId], 'method'=>'put']) !!}
-                                   <?php /*
-                                    *  <input type="button" value="-" id="moins{{$cartItem->id}}" onclick="minus{{$cartItem->id}}()" class="cart_quantity_down">
-                                    */?>
-                                    <input type="number" size="2" value="{{$cartItem->qty}}" name="qty" id="count{{$cartItem->id}}"
-                                           autocomplete="off" style="text-align:center; max-width:50px; "  MIN="1" MAX="30">
-                                  <?php /*
-                                   *   <input type="button" value="+" id="plus{{$cartItem->id}}" onclick="plus{{$cartItem->id}}()" class="cart_quantity_up">
-                                   */?>
 
-                                    <button type="submit" class="btn btn-success btn-sm" title="Update Count"> 
-    <span class="glyphicon glyphicon-edit"></span></button>
-                                   
-                                  
-                                    {!! Form::close() !!}
+                                  <input type="hidden" id="rowId<?php echo $count;?>" value="{{$cartItem->rowId}}"/>
+                                    <input type="hidden" id="proId<?php echo $count;?>" value="{{$cartItem->id}}"/>
+
+                                    <input type="number" size="2" value="{{$cartItem->qty}}" name="qty" id="upCart<?php echo $count;?>"
+                                           autocomplete="off" style="text-align:center; max-width:50px; "  MIN="1" MAX="30">
+
+
                                 </div>
                             </td>
                             <td class="cart_total">
@@ -84,10 +124,13 @@
                             </td>
                         </tr>
 
-
+<?php $count++;?>
                     </tbody>  @endforeach
                 </table>
             </div>
+
+</div>
+
 
         </div>
     </section> <!--/#cart_items-->
@@ -170,24 +213,5 @@
     </section><!--/#do_action-->
 
 
-    <script>
-        @foreach($cartItems as $cartItem)
-                var count{{$cartItem -> id}} = 1;
-        var countEl{{$cartItem -> id}} = document.getElementById("count{{$cartItem->id}}");
-        function plus{{$cartItem -> id}}(){
-        count{{$cartItem -> id}}++;
-        countEl.value = count{{$cartItem -> id}};
-        }
-        function minus{{$cartItem -> id}}(){
-        if (count{{$cartItem -> id}} > 1) {
-        count{{$cartItem -> id}}--;
-        countEl{{$cartItem -> id}}.value = count{{$cartItem -> id}};
-        }
-        }
-        @endforeach
-    </script>
-
 <?php } ?>
 @endsection
-
-

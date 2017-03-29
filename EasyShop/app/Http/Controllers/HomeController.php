@@ -8,33 +8,15 @@ use Illuminate\Http\Request;
 use Mail;
 use App\Mail\contacts;
 use App\wishList;
+use App\recommends;
 
 class HomeController extends Controller {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    //  public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function __construct() {
         return view('front.home');
         //$this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index() {
         return view('front.home');
     }
@@ -45,28 +27,20 @@ class HomeController extends Controller {
             $end = $request->end; // max price value
 
             $Products = DB::table('products')
-                    ->where('pro_price', '>=', $start)
-                    ->where('pro_price', '<=', $end)
-                    ->orderby('pro_price', 'ASC')
-                    ->paginate(6);
+                    ->where('pro_price', '>=', $start)->where('pro_price', '<=', $end)->orderby('pro_price', 'ASC')->paginate(6);
 
              response()->json($Products); //return to ajax
             return view('front.products', compact('Products'));
-        } 
+        }
         else if(isset($request->brand)){
-             
+
            $brand = $request->brand; //brand
 
-            $Products = DB::table('products')
-                    ->whereIN('cat_id', explode( ',', $brand )) 
-                    ->paginate(6);
-            
-           // dd($Products);
-         
-             response()->json($Products); //return to ajax
+            $Products = DB::table('products')->whereIN('cat_id', explode( ',', $brand ))->paginate(6);
+            response()->json($Products); //return to ajax
             return view('front.products', compact('Products'));
 
-            
+
         }
         else {
 
@@ -76,17 +50,44 @@ class HomeController extends Controller {
     }
 
     public function proCats(Request $request) {
+           if ($request->ajax() && isset($request->start)) {
+            $start = $request->start; // min price value
+            $end = $request->end; // max price value
+            $catName = $request->name;
+            $Products = DB::table('pro_cat')->leftJoin('products', 'pro_cat.id', '=', 'products.cat_id')
+                     ->where('pro_cat.name', '=', $catName)
+                     ->where('pro_price', '>=', $start)
+                    ->where('pro_price', '<=', $end)
+                    ->orderby('pro_price', 'ASC')
+                    ->paginate(6);
+             response()->json($Products); //return to ajax
+            return view('front.products', compact('Products'));
+        } else if(isset($request->brand)){
+            $brand = $request->brand; //brand
+            $Products = DB::table('products')->whereIN('cat_id', explode( ',', $brand ))->paginate(6);
+             response()->json($Products); //return to ajax
+            return view('front.products', compact('Products'));
+        } else{
         $catName = $request->name;
-        $Products = DB::table('pro_cat')->leftJoin('products', 'pro_cat.id', '=', 'products.cat_id')->where('pro_cat.name', '=', $catName)->paginate(12);
-
-        return view('front.shop', compact('Products'));
+        $Products = DB::table('pro_cat')->leftJoin('products', 'pro_cat.id', '=', 'products.cat_id')->where('pro_cat.name', '=', $catName)->paginate(6);
+         return view('front.shop', compact('Products'));
+        }
     }
 
     Public function product_details($id) {
+        //insert command for views
+        if(Auth::check()){
+        $recommends = new recommends;
+        $recommends->uid = Auth::user()->id;
+        $recommends->pro_id = $id;
+        $recommends->save();
+        }
 
+
+        //view product details
         $Products = DB::table('products')->where('id', $id)->get();
-
         return view('front.product_details', compact('Products'));
+
     }
 
     public function contact() {
@@ -115,8 +116,6 @@ class HomeController extends Controller {
         $wishList = new wishList;
         $wishList->user_id = Auth::user()->id;
         $wishList->pro_id = $request->pro_id;
-
-
         $wishList->save();
 
         $Products = DB::table('products')->where('id', $request->pro_id)->get();
@@ -137,5 +136,26 @@ class HomeController extends Controller {
 
         return back()->with('msg', 'Item Removed from Wishlist');
     }
+
+
+    public function selectSize(Request $har){
+      $proDum = $har->proDum;
+      $size = $har->size;
+      $s_price = DB::table('products_properties')
+      ->where('pro_id', $proDum)
+      ->where('size', $size)
+      ->get();
+
+      foreach($s_price as $sPrice){
+        echo "US $ " .$sPrice->p_price;?>
+      <input type="hidden" value="<?php echo $sPrice->p_price;?>" name="newPrice"/>
+      <div style="background:<?php echo $sPrice->color;?>; width:40px; height:40px"></div>
+        <?php
+      }
+    }
+
+
+
+
 
 }

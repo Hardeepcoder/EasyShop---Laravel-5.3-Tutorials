@@ -1,8 +1,31 @@
 @extends('front.master')
 
 @section('content')
+<script>
+$(document).ready(function(){
+
+ $('#size').change(function(){
+
+   var size = $('#size').val();
+var proDum = $('#proDum').val();
 
 
+      $.ajax({
+          type: 'get',
+          dataType: 'html',
+          url: '<?php echo url('/selectSize');?>',
+          data: "size=" + size + "& proDum=" + proDum,
+          success: function (response) {
+              console.log(response);
+              $('#price').html(response);
+          }
+      });
+
+
+ });
+
+});
+</script>
 <section>
     <div class="container">
         <div class="row">
@@ -184,28 +207,47 @@
                         <div class="product-information"><!--/product-information-->
                             <img src=""  class="newarrival" alt="" />
                             <h2><?php echo ucwords($value->pro_name); ?></h2>
-                            <p>Web ID: <?php echo $value->pro_code; ?></p>
-                            <img src="" alt="" />
+                            <p>Web Code: <?php echo $value->pro_code; ?></p>
+
+                            <form action="{{url('/cart/addItem')}}/<?php echo $value->id; ?>">
                             <span>
-                                <span>US $<?php echo $value->pro_price; ?></span>
+                                <span id="price">US $<?php echo $value->pro_price; ?>
+                                   <input type="hidden" value="<?php echo $value->pro_price;?>" name="newPrice"/>
+
+
+                                </span>
                                 <label>Quantity:</label>
-                                <input type="text" value="3" />
-                                <button type="button" class="btn btn-fefault cart">
+                                  <input type="number" size="2" value="1" id="qty"  autocomplete="off"
+                                   style="text-align:center; max-width:50px; "  MIN="1" MAX="30">
+
+                                <button class="btn btn-fefault cart" id="addToCart">
                                     <i class="fa fa-shopping-cart"></i>
                                     Add to cart
                                 </button>
 
-
+                                  <input type="hidden" value="<?php echo $value->id; ?>" id="proDum"/>
                             </span>
-                            <p><b>Availability:</b> In Stock</p>
-                            <p><b>Condition:</b> New</p>
-                            <p><b>Brand:</b> E-SHOPPER</p>
-                            <a href=""><img src="{{url('/')}}/theme/images/product-details/share.png" class="share img-responsive"  alt="" /></a>
+
+                            <p><b>Availability:</b> <?php echo $value->stock; ?> In Stock</p>
+                            <?php $sizes = DB::table('products_properties')
+                            ->where('pro_id',$value->id)->get();?>
+                            <select name="size" id="size">
+                              @foreach ($sizes as $size)
+                              <option>{{$size->size}}</option>
+                              @endforeach
+
+                            </select>
+
+
+</form>
+
+
 
                             <?php
+                            //wishlist Code start
                             if(Auth::check()){
                             $wishData = DB::table('wishlist')->leftJoin('products', 'wishlist.pro_id', '=', 'products.id')->where('wishlist.pro_id', '=',$value->id)->get();
-                                                
+
                             //if($wishData==""){ echo 'empty'; } else { echo 'filled';}
                             $count = App\wishList::where(['pro_id' => $value->id])->count();
                             ?>
@@ -430,4 +472,3 @@
 
 
 @endsection
-
