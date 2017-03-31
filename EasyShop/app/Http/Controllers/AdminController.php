@@ -190,8 +190,25 @@ class AdminController extends Controller {
     $properties->p_price = $request->p_price;
     $properties->save();
 
-    return redirect('/admin/products');
+    return redirect('/admin/ProductEditForm/'.$request->pro_id);
+
+  }
+
+  public function editProperty(Request $request){
+    //dd($request->all());
+
+
+         $uptProts = DB::table('products_properties')
+          ->where('pro_id', $request->pro_id)
+          ->where('id', $request->id)
+          ->update($request->except('_token'));
+          if($uptProts){
+          return back()->with('msg', 'updated');
+        }else {
+        return back()->with('msg', 'check value again');
+        }
 
 
   }
+
 }

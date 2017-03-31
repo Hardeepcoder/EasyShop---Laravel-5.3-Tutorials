@@ -3,7 +3,7 @@
 @section('content')
 <script>
 $(document).ready(function(){
-
+$('#addToCart').hide();
  $('#size').change(function(){
 
    var size = $('#size').val();
@@ -18,6 +18,29 @@ var proDum = $('#proDum').val();
           success: function (response) {
               console.log(response);
               $('#price').html(response);
+              $('#addToCart').hide();
+
+              <?php for($i=1;$i<10;$i++){?>
+                var colorValue<?php echo $i;?> = $('#colorValue<?php echo $i;?>').val();
+              $('#colorClicked<?php echo $i;?>').click(function(){
+
+              // pass color values to color function in Controller
+              $.ajax({
+                  type: 'get',
+                  dataType: 'html',
+                  url: '<?php echo url('/selectColor');?>',
+                  data: "size=" + size + "& proDum=" + proDum + "& color=" + colorValue<?php echo $i;?>,
+                  success: function (response) {
+                      console.log(response);
+                        $('#price').html(response);
+                      $('#addToCart').show();
+
+
+                  }
+              });
+
+                });
+               <?php }?>
           }
       });
 
@@ -232,6 +255,7 @@ var proDum = $('#proDum').val();
                             <?php $sizes = DB::table('products_properties')
                             ->where('pro_id',$value->id)->get();?>
                             <select name="size" id="size">
+                              <<option value="">Select Size to see color</option>
                               @foreach ($sizes as $size)
                               <option>{{$size->size}}</option>
                               @endforeach

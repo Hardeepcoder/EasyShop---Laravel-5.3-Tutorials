@@ -9,6 +9,7 @@ Route::get('/range', function() {
 
 Route::get('/product_details/{id}', 'HomeController@product_details');
 Route::get('selectSize', 'HomeController@selectSize');
+Route::get('selectColor', 'HomeController@selectColor');
 
 Route::get('/logout', 'Auth\LoginController@logout');
 
@@ -80,20 +81,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     Route::get('deleteCat/{id}', 'AdminController@deleteCat');
 
     Route::get('/addProperty/{id}', function($id){
-
       return view('admin.addProperty')->with('id', $id);
-
     });
 
     Route::get('/addPropertyAll', function(){
-
       return view('admin.addProperty');
-
     });
 
-
-
     Route::post('sumbitProperty','AdminController@sumbitProperty');
+      Route::post('editProperty','AdminController@editProperty');
 
 });
 Route::get('/logout', 'Auth\LoginController@logout');

@@ -145,14 +145,45 @@ class HomeController extends Controller {
       ->where('pro_id', $proDum)
       ->where('size', $size)
       ->get();
-
+$colorCount =1;
+echo "<p>click on color to see price and add to cart button</p>";
       foreach($s_price as $sPrice){
         echo "US $ " .$sPrice->p_price;?>
       <input type="hidden" value="<?php echo $sPrice->p_price;?>" name="newPrice"/>
-      <div style="background:<?php echo $sPrice->color;?>; width:40px; height:40px"></div>
-        <?php
+      <input type="hidden" value="<?php echo $sPrice->color;?>" id="colorValue<?php echo $colorCount;?>"/>
+      <div style="background:<?php echo $sPrice->color;?>; width:40px; height:40px"
+         id="colorClicked<?php echo $colorCount;?>"></div>
+        <?php $colorCount++;
       }
     }
+
+    public function selectColor(Request $colorRequest){
+      $proDum = $colorRequest->proDum;
+      $size = $colorRequest->size;
+      $color = $colorRequest->color;
+      $c_price = DB::table('products_properties')
+      ->where('pro_id', $proDum)
+      ->where('size', $size)
+      ->where('color',$color)
+      ->get();
+
+      $colorCount =1;
+
+            foreach($c_price as $sPrice){
+              echo "US $ " .$sPrice->p_price;?>
+            <input type="hidden" value="<?php echo $sPrice->p_price;?>" name="newPrice"/>
+            <input type="hidden" value="<?php echo $sPrice->color;?>" id="colorValue<?php echo $colorCount;?>"/>
+            <div style="background:<?php echo $sPrice->color;?>; width:40px; height:40px"
+               id="colorClicked<?php echo $colorCount;?>"></div>
+              <?php $colorCount++;
+            }
+
+
+    }
+
+
+
+
 
 
 
