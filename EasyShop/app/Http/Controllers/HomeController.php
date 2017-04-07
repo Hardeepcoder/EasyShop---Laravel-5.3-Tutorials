@@ -49,6 +49,13 @@ class HomeController extends Controller {
         }
     }
 
+
+    public function newArrival(){
+                  $Products = DB::table('products')->where('new_arrival', 1)->paginate(6); // now we are fetching all products
+                  return view('front.shop', compact('Products'));
+
+    }
+
     public function proCats(Request $request) {
            if ($request->ajax() && isset($request->start)) {
             $start = $request->start; // min price value
@@ -146,12 +153,13 @@ class HomeController extends Controller {
       ->where('size', $size)
       ->get();
 $colorCount =1;
-echo "<p>click on color to see price and add to cart button</p>";
+//echo "<p>click on color to see price and add to cart button</p>";
       foreach($s_price as $sPrice){
-        echo "US $ " .$sPrice->p_price;?>
+        //echo "US $ " .$sPrice->p_price;?>
       <input type="hidden" value="<?php echo $sPrice->p_price;?>" name="newPrice"/>
       <input type="hidden" value="<?php echo $sPrice->color;?>" id="colorValue<?php echo $colorCount;?>"/>
-      <div style="background:<?php echo $sPrice->color;?>; width:40px; height:40px"
+      <div style="background:<?php echo $sPrice->color;?>;
+        width:40px; height:40px; float:left; margin:5px"
          id="colorClicked<?php echo $colorCount;?>"></div>
         <?php $colorCount++;
       }
@@ -166,13 +174,12 @@ echo "<p>click on color to see price and add to cart button</p>";
       ->where('size', $size)
       ->where('color',$color)
       ->get();
-
       $colorCount =1;
-
             foreach($c_price as $sPrice){
-              echo "US $ " .$sPrice->p_price;?>
+              echo "$" . $sPrice->p_price;?>
             <input type="hidden" value="<?php echo $sPrice->p_price;?>" name="newPrice"/>
-            <input type="hidden" value="<?php echo $sPrice->color;?>" id="colorValue<?php echo $colorCount;?>"/>
+            <input type="hidden" value="<?php echo $sPrice->color;?>"
+            id="colorValue<?php echo $colorCount;?>"/>
             <div style="background:<?php echo $sPrice->color;?>; width:40px; height:40px"
                id="colorClicked<?php echo $colorCount;?>"></div>
               <?php $colorCount++;

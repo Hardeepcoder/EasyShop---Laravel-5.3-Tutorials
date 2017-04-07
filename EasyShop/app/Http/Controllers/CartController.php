@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 use Gloudemans\Shoppingcart\Facades\Cart; // for cart lib
 use Illuminate\Http\Request;
 use App\products;
+use Illuminate\Support\Facades\Auth;
 class CartController extends Controller
 {
     public function index(){
@@ -36,27 +38,21 @@ class CartController extends Controller
         $qty = $request->qty;
         $proId = $request->proId;
      $rowId = $request->rowId;
-    Cart::update($rowId,$qty); // for update
-
-$cartItems = Cart::content(); // display all new data of cart
-return view('cart.upCart', compact('cartItems'))->with('status', 'cart updated');
-
-
-
-      /*   $products = products::find($proId);
+      Cart::update($rowId,$qty); // for update
+      $cartItems = Cart::content(); // display all new data of cart
+      return view('cart.upCart', compact('cartItems'))->with('status', 'cart updated');
+      /*  $products = products::find($proId);
         $stock = $products->stock;
         if($qty<$stock){
-
             $msg = 'Cart is updated';
            Cart::update($id,$request->qty);
            return back()->with('status',$msg);
-
         }else{
              $msg = 'Please check your qty is more than product stock';
               return back()->with('error',$msg);
-        }
-        */
+        }        */
 
     }
+
 
 }

@@ -47,11 +47,11 @@ class ProfileController extends Controller {
     public function updatePassword(Request $request) {
         $oldPassword = $request->oldPassword;
         $newPassword = $request->newPassword;
-       
+
 
         if(!Hash::check($oldPassword, Auth::user()->password)){
           return back()->with('msg','The specified password does not match the database password'); //when user enter wrong password as current password
-            
+
         }else{
             $request->user()->fill(['password' => Hash::make($newPassword)])->save(); //updating password into user table
            return back()->with('msg','Password has been updated');

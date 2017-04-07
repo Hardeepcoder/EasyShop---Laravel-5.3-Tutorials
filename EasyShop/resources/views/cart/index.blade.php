@@ -28,6 +28,8 @@ $(document).ready(function(){
 
   });
   <?php } ?>
+
+
 });
 
 
@@ -144,20 +146,18 @@ $(document).ready(function(){
             <div class="row">
                 <div class="col-sm-6">
                     <div class="chose_area">
-                        <ul class="user_option">
+                  <?php /*      <ul class="user_option">
                             <li>
-                                <input type="checkbox">
                                 <label>Use Coupon Code</label>
                             </li>
                             <li>
-                                <input type="checkbox">
-                                <label>Use Gift Voucher</label>
+                                <input type="text" id="couponCode">
                             </li>
                             <li>
-                                <input type="checkbox">
-                                <label>Estimate Shipping & Taxes</label>
+                                <button id="couponBtn">Apply</button>
                             </li>
                         </ul>
+                        */?>
                         <ul class="user_info">
                             <li class="single_field">
                                 <label>Country:</label>

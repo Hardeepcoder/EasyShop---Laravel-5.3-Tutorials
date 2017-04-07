@@ -4,8 +4,8 @@
 <script>
 $(document).ready(function(){
 $('#addToCart').hide();
+$('#addToCart_default').show();
  $('#size').change(function(){
-
    var size = $('#size').val();
 var proDum = $('#proDum').val();
 
@@ -19,6 +19,7 @@ var proDum = $('#proDum').val();
               console.log(response);
               $('#price').html(response);
               $('#addToCart').hide();
+              $('#addToCart_default').show();
 
               <?php for($i=1;$i<10;$i++){?>
                 var colorValue<?php echo $i;?> = $('#colorValue<?php echo $i;?>').val();
@@ -34,6 +35,7 @@ var proDum = $('#proDum').val();
                       console.log(response);
                         $('#price').html(response);
                       $('#addToCart').show();
+                      $('#addToCart_default').hide();
 
 
                   }
@@ -228,39 +230,57 @@ var proDum = $('#proDum').val();
                     <div class="col-sm-7">
 
                         <div class="product-information"><!--/product-information-->
-                            <img src=""  class="newarrival" alt="" />
+
+                          @if($value->new_arrival==1)
+                            <img src="{{Config::get('app.url')}}theme/images/product-details/new.jpg"
+                              class="newarrival" alt="" />
+                            @endif  
                             <h2><?php echo ucwords($value->pro_name); ?></h2>
                             <p>Web Code: <?php echo $value->pro_code; ?></p>
+                              <form action="{{url('/cart/addItem')}}/<?php echo $value->id; ?>">
+                              <span>
+                                  <span id="price">
+                                    @if($value->spl_price ==0)
+                                    ${{$value->pro_price}}
+                                     <input type="hidden" value="{{$value->pro_price}}"
+                                      name="newPrice"/>
+                                      @else
+                                    <b style="text-decoration:line-through; color:#ddd">
+                                      ${{$value->pro_price}} </b>
+                                       ${{$value->spl_price}}
+                                       <input type="hidden" value="{{$value->spl_price}}"
+                                        name="newPrice"/>
+                                      @endif
 
-                            <form action="{{url('/cart/addItem')}}/<?php echo $value->id; ?>">
-                            <span>
-                                <span id="price">US $<?php echo $value->pro_price; ?>
-                                   <input type="hidden" value="<?php echo $value->pro_price;?>" name="newPrice"/>
-
-
-                                </span>
-                                <label>Quantity:</label>
-                                  <input type="number" size="2" value="1" id="qty"  autocomplete="off"
-                                   style="text-align:center; max-width:50px; "  MIN="1" MAX="30">
-
-                                <button class="btn btn-fefault cart" id="addToCart">
-                                    <i class="fa fa-shopping-cart"></i>
-                                    Add to cart
-                                </button>
-
-                                  <input type="hidden" value="<?php echo $value->id; ?>" id="proDum"/>
-                            </span>
-
+                                  </span>
+                                  <label>Quantity:</label>
+                                    <input type="number" size="2" value="1" id="qty"  autocomplete="off"
+                                     style="text-align:center; max-width:50px;" MIN="1" MAX="30">
+                                     <button class="btn btn-fefault cart" id="addToCart_default">
+                                         <i class="fa fa-shopping-cart"></i>
+                                         Add to cart
+                                     </button>
+                                      <button class="btn btn-fefault cart" id="addToCart">
+                                          <i class="fa fa-shopping-cart"></i>
+                                          Add to cart
+                                      </button>
+                                    <input type="hidden" value="<?php echo $value->id; ?>" id="proDum"/>
+                              </span>
                             <p><b>Availability:</b> <?php echo $value->stock; ?> In Stock</p>
+
                             <?php $sizes = DB::table('products_properties')
-                            ->where('pro_id',$value->id)->get();?>
+                            ->select('size')
+                            ->groupBy('size')
+                            ->where('pro_id',$value->id)->groupBy('size')->get();?>
+                            @if(count($sizes)!=0)
                             <select name="size" id="size">
                               <<option value="">Select Size to see color</option>
                               @foreach ($sizes as $size)
                               <option>{{$size->size}}</option>
                               @endforeach
-
                             </select>
+                            @endif
+
 
 
 </form>

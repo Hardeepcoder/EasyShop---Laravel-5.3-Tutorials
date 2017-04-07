@@ -9,7 +9,7 @@
 
              <div class="col-md-7">
                 <div class="content-box-large ">
-    {!! Form::open(['url' => 'admin/editProduct',  'method' => 'post']) !!}
+                  {!! Form::open(['url' => 'admin/editProduct',  'method' => 'post']) !!}
                      <div class="panel-heading col-md-8">
                       <div class="panel-title">Edit Product
                         <input type="submit" class="btn btn-success pull-right" value="Update product" style="margin:-4px"/>
@@ -34,10 +34,14 @@
                             <br/>
                             Code:    <input type="text" name="pro_code" class="form-control" value="{{$product->pro_code}}">
                             <br/>
-                            Details:    <textarea name="pro_info" class="form-control" rows="5">{{$product->pro_info}}</textarea>
+                            Sale price: <input type="text" name="spl_price" class="form-control"
+                             value="{{$product->spl_price}}">
                             <br/>
-                            Spl  price     <input type="text" name="spl_price" class="form-control" value="{{$product->spl_price}}">
+                            Details:  <textarea name="pro_info" class="form-control" rows="2">{{$product->pro_info}}</textarea>
                             <br/>
+                            New Arrival: <p class="pull-right"><input type="checkbox" name="new_arrival" value="1">
+
+
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         </div>
 
@@ -46,25 +50,26 @@
                     </div>
 
                     @endforeach
-        {!! Form::close() !!}
+                    {!! Form::close() !!}
                 </div>
               </div>
 
 
               <div class="col-md-4">
-              <div class="panel-heading">
+                <?php $pId = $Products[0]->id;
+                $prots = DB::table('products_properties')
+                ->where('pro_id', $pId)->get();
+                if(count($prots)==0) { } else {?>
+                  <div class="panel-heading">
                    <div class="panel-title">
                      Update Proprities
-
-                     <a href="" class="btn btn-info pull-right" style="margin:-6px; color:#fff">Add more</a>
+                     <a href="" class="btn btn-info pull-right"
+                     style="margin:-6px; color:#fff">Add more</a>
                    </div>
                    </div>
 
-                     <div class="content-box-large">
-                       <?php $pId = $Products[0]->id;
-                       $prots = DB::table('products_properties')
-                       ->where('pro_id', $pId)->get();
-                       ?>
+                   <div class="content-box-large">
+
                       <table class="table table-responsive">
                       <tr>
                         <td>Size</td>
@@ -88,7 +93,9 @@
 
                       </table>
                        <div>
-<hr>
+                 <?php }?>
+
+                       <hr>
 
                        <div class="content-box-large " align="center">
                          <div class="panel-heading">

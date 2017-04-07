@@ -11,7 +11,7 @@
                     </button>
                 </div>
                 <div class="mainmenu pull-left">
-                   
+
                     <ul class="nav navbar-nav collapse navbar-collapse">
                         <li><a href="{{url('/')}}" class="active">Home</a></li>
                         <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
@@ -24,11 +24,11 @@
                                 <li><a href="{{url('/products/electronics')}}">Electronics</a></li>
                                 <li><a href="{{url('/products/automobiles')}}">Automobiles</a></li>
                                 <li><a href="{{url('/products/movies')}}">Movies</a></li>
-                                 * 
+                                 *
                                  */?>
 
                             </ul>
-                        </li> 
+                        </li>
 
                         <?php /* <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
                           <ul role="menu" class="sub-menu">
@@ -37,16 +37,17 @@
                           </ul>
                           </li>
                           <li><a href="404.html">404</a></li>
-                         * 
+                         *
                          */ ?>
                         <li><a href="{{url('/contact')}}">Contact</a></li>
+                        <li><a href="{{url('/newArrival')}}" style="background:red; color:#fff">New Arrival</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-sm-3">
                 <div class="search_box pull-right">
-                    
-                    
+
+
                     <form action='{{url('/search')}}' method="post">
                         <input type="text" placeholder="Search" name="search_data" id="proList"/>
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">

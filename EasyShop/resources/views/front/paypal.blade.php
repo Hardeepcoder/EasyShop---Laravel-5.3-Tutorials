@@ -15,7 +15,7 @@
 <input type="hidden" name="tax_{{$count}}" value="0.12">
 
 <!-- after payment -->
- <input type="hidden" name="return" id="cancel_return" value="http://localhost/easyshop/index.php/thankyou" />
+ <input type="hidden" name="return" id="return" value="http://localhost/easyshop/index.php/thankyou" />
 <!-- Cancel payment -->
   <input type="hidden" name="cancel_return" id="cancel_return" value="http://localhost/easyshop/index.php/checkout" />
   <br>

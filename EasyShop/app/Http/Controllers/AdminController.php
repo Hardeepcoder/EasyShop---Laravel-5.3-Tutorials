@@ -118,6 +118,11 @@ class AdminController extends Controller {
         $pro_price = $request->pro_price;
         $pro_info = $request->pro_info;
         $spl_price = $request->spl_price;
+        if($request->new_arrival =='NULL'){
+          $new_arrival = '1';
+        }else {
+          $new_arrival = $request->new_arrival;
+        }
 
         DB::table('products')->where('id', $proid)->update([
             'pro_name' => $pro_name,
@@ -126,6 +131,8 @@ class AdminController extends Controller {
             'pro_price' => $pro_price,
             'pro_info' => $pro_info,
             'spl_price' => $spl_price,
+            'new_arrival' => $new_arrival
+
         ]);
 
 
@@ -195,9 +202,6 @@ class AdminController extends Controller {
   }
 
   public function editProperty(Request $request){
-    //dd($request->all());
-
-
          $uptProts = DB::table('products_properties')
           ->where('pro_id', $request->pro_id)
           ->where('id', $request->id)
@@ -206,9 +210,14 @@ class AdminController extends Controller {
           return back()->with('msg', 'updated');
         }else {
         return back()->with('msg', 'check value again');
-        }
-
-
+      }
   }
+
+    public function addSale(Request $request){
+      $salePrice = $request->salePrice;
+      $pro_id = $request->pro_id;
+      DB::table('products')->where('id', $pro_id)->update(['spl_price' => $salePrice]);
+      echo 'added successfully';
+    }
 
 }

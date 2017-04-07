@@ -154,13 +154,13 @@
         <div class="payment-options">
             <span>
                 <input type="radio" name="pay" value="COD" checked="checked" id="cash"> COD
-            
+
             </span>
             <span>
                 <input type="radio" name="pay" value="paypal" id="paypal"> PayPal
                 @include('front.paypal')
             </span>
-            
+
             <span>
             <input type="submit" value="COD" class="btn btn-primary" id="cashbtn">
             </span>
@@ -174,20 +174,20 @@
 
 
         <script>
-            
+
             $('#paypalbtn').hide();
           //  $('#cashbtn').hide();
-            
+
             $(':radio[id=paypal]').change(function(){
                 $('#paypalbtn').show();
-                $('#cashbtn').hide();           
-                
+                $('#cashbtn').hide();
+
             });
-            
+
               $(':radio[id=cash]').change(function(){
                 $('#paypalbtn').hide();
-                $('#cashbtn').show();           
-                
+                $('#cashbtn').show();
+
             });
             </script>
 </section> <!--/#cart_items-->

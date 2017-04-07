@@ -27,6 +27,7 @@ Route::get('/cart/addItem/{id}', 'CartController@addItem');
 Route::get('/cart/remove/{id}', 'CartController@destroy');
 Route::get('/cart/update/{id}', 'CartController@update');
 
+Route::get('/newArrival', 'HomeController@newArrival');
 
 // logged in user pages
 Route::group(['middleware' => 'auth'], function() {
@@ -49,6 +50,7 @@ Route::group(['middleware' => 'auth'], function() {
     });
 
     Route::get('/mail', 'HomeController@sendmail');
+
 });
 
 Auth::routes();
@@ -67,29 +69,22 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     Route::get('/CatEditForm/{id}', 'AdminController@CatEditForm');
 
     Route::post('/editCat', 'AdminController@editCat');
-
-
     Route::get('ProductEditForm/{id}', 'AdminController@ProductEditForm');
-
-
     Route::post('editProduct', 'AdminController@editProduct');
-
     Route::get('EditImage/{id}', 'AdminController@ImageEditForm');
-
     Route::post('editProImage', 'AdminController@editProImage');
-
     Route::get('deleteCat/{id}', 'AdminController@deleteCat');
-
     Route::get('/addProperty/{id}', function($id){
       return view('admin.addProperty')->with('id', $id);
     });
-
     Route::get('/addPropertyAll', function(){
       return view('admin.addProperty');
     });
-
     Route::post('sumbitProperty','AdminController@sumbitProperty');
-      Route::post('editProperty','AdminController@editProperty');
+    Route::post('editProperty','AdminController@editProperty');
+
+
+    Route::get('addSale', 'AdminController@addSale');
 
 });
 Route::get('/logout', 'Auth\LoginController@logout');
