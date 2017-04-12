@@ -82,10 +82,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     });
     Route::post('sumbitProperty','AdminController@sumbitProperty');
     Route::post('editProperty','AdminController@editProperty');
-
-
     Route::get('addSale', 'AdminController@addSale');
 
+    Route::get('addAlt/{id}', 'AdminController@addAlt');
+    Route::post('submitAlt','AdminController@submitAlt');
 });
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::post('addToWishList', 'HomeController@wishList');

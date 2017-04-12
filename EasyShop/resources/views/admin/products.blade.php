@@ -50,6 +50,7 @@ $(document).ready(function(){
                                 <th>Product Name</th>
                                 <th>Product Code</th>
                                 <th>Product Price</th>
+                                  <th>Alt Images</th>
                                 <th>On Sale</th>
                                 <th>update</th>
                             </tr>
@@ -66,6 +67,10 @@ $(document).ready(function(){
                                 <td>{{$product->pro_name}}</td>
                                 <td>{{$product->pro_code}}</td>
                                 <td>{{$product->pro_price}}</td>
+                                <td><a href="{{url('/')}}/admin/addAlt/{{$product->id}}"
+                                   class="btn btn-info" style="border-radius:20px;">
+                                   <i class="fa fa-plus"></i> Add</a></td>
+
                                   <td>
                                     <div id="checkSale<?php echo $count;?>">
                                     <input type="checkbox" id="onSale<?php echo $count;?>"> Yes
@@ -81,8 +86,9 @@ $(document).ready(function(){
                                     Save Amount</button>
                                   </div>
                                   </td>
+
                                 <td><a href="{{url('/')}}/admin/ProductEditForm/{{$product->id}}"
-                                   class="btn btn-info btn-small">Edit</a></td>
+                                   class="btn btn-success btn-small">Edit</a></td>
                             </tr>
                         </tbody>
                         <?php $count++;?>

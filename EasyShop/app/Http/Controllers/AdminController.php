@@ -220,4 +220,24 @@ class AdminController extends Controller {
       echo 'added successfully';
     }
 
+    public function addAlt($id){
+      $proInfo = DB::table('products')->where('id', $id)->get();
+      return view('admin.addAlt', compact('proInfo'));
+    }
+
+    public function submitAlt(Request $request){
+     $file = $request->file('image');
+      $filename  = time() . $file->getClientOriginalName(); // name of file
+
+      $path = "public/img/alt_images";
+      $file->move($path,$filename); // save to our local folder
+      $proId = $request->pro_id;
+      $add_lat = DB::table('alt_images')
+      ->insert(['proId' => $proId, 'alt_img' => $filename, 'status' =>0]);
+      return back();
+    }
+
+
+
+
 }
