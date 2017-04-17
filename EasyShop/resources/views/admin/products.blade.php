@@ -50,7 +50,7 @@ $(document).ready(function(){
                                 <th>Product Name</th>
                                 <th>Product Code</th>
                                 <th>Product Price</th>
-                                  <th>Alt Images</th>
+                                <th>Alt Images</th>
                                 <th>On Sale</th>
                                 <th>update</th>
                             </tr>
@@ -67,7 +67,14 @@ $(document).ready(function(){
                                 <td>{{$product->pro_name}}</td>
                                 <td>{{$product->pro_code}}</td>
                                 <td>{{$product->pro_price}}</td>
-                                <td><a href="{{url('/')}}/admin/addAlt/{{$product->id}}"
+                                <td>
+                                  <?php
+                                  $Aimgs = DB::table('alt_images')->where('proId', $product->id)
+                                  ->get();
+
+                                   ?>
+                                  <p> {{count($Aimgs)}} images found</p>
+                                  <a href="{{url('/')}}/admin/addAlt/{{$product->id}}"
                                    class="btn btn-info" style="border-radius:20px;">
                                    <i class="fa fa-plus"></i> Add</a></td>
 

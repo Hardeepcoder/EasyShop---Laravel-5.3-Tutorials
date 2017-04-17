@@ -6,7 +6,7 @@ Route::get('/home', 'HomeController@index');
 Route::get('/range', function() {
     return view('front.range');
 });
-
+Route::post('addReview', 'HomeController@addReview');
 Route::get('/product_details/{id}', 'HomeController@product_details');
 Route::get('selectSize', 'HomeController@selectSize');
 Route::get('selectColor', 'HomeController@selectColor');
@@ -90,6 +90,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::post('addToWishList', 'HomeController@wishList');
 Route::get('/WishList', 'HomeController@View_wishList');
-
 Route::get('/removeWishList/{id}', 'HomeController@removeWishList');
 //Route::get('/admin', 'AdminController@index');

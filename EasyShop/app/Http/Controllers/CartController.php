@@ -36,23 +36,23 @@ class CartController extends Controller
     public function update(Request $request, $id)
     {
         $qty = $request->qty;
-        $proId = $request->proId;
-     $rowId = $request->rowId;
-      Cart::update($rowId,$qty); // for update
-      $cartItems = Cart::content(); // display all new data of cart
-      return view('cart.upCart', compact('cartItems'))->with('status', 'cart updated');
-      /*  $products = products::find($proId);
-        $stock = $products->stock;
-        if($qty<$stock){
-            $msg = 'Cart is updated';
-           Cart::update($id,$request->qty);
-           return back()->with('status',$msg);
-        }else{
-             $msg = 'Please check your qty is more than product stock';
-              return back()->with('error',$msg);
-        }        */
+              $proId = $request->proId;
+           $rowId = $request->rowId;
+            Cart::update($rowId,$qty); // for update
+            $cartItems = Cart::content(); // display all new data of cart
+            return view('cart.upCart', compact('cartItems'))->with('status', 'cart updated');
+            /*  $products = products::find($proId);
+              $stock = $products->stock;
+              if($qty<$stock){
+                  $msg = 'Cart is updated';
+                 Cart::update($id,$request->qty);
+                 return back()->with('status',$msg);
+              }else{
+                   $msg = 'Please check your qty is more than product stock';
+                    return back()->with('error',$msg);
+              }        */
 
-    }
+          }
 
 
 }

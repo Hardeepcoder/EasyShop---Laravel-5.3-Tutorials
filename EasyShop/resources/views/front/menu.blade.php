@@ -40,7 +40,7 @@
                          *
                          */ ?>
                         <li><a href="{{url('/contact')}}">Contact</a></li>
-                        <li><a href="{{url('/newArrival')}}" style="background:red; color:#fff">New Arrival</a></li>
+                        <li><a href="{{url('/newArrival')}}">New Arrival</a></li>
                     </ul>
                 </div>
             </div>
