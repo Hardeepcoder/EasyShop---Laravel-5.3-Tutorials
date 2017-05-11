@@ -1,7 +1,28 @@
 @extends('front.master')
 
 @section('content')
+<script>
+$(document).ready(function(){
+<?php $maxP = count($Products);
+  for($i=0;$i<$maxP; $i++) {?>
+    $('#successMsg<?php echo $i;?>').hide();
+    $('#cartBtn<?php echo $i;?>').click(function(){
+      var pro_id<?php echo $i;?> = $('#pro_id<?php echo $i;?>').val();
 
+      $.ajax({
+        type: 'get',
+        url: '<?php echo url('/cart/addItem');?>/'+ pro_id<?php echo $i;?>,
+        success:function(){
+        $('#cartBtn<?php echo $i;?>').hide();
+        $('#successMsg<?php echo $i;?>').show();
+        $('#successMsg<?php echo $i;?>').append('product has been added to cart');
+        }
+      });
+
+    });
+    <?php }?>
+});
+</script>
 <section id="advertisement">
     <div class="container">
       <h3 align="center">Products</h3>
@@ -75,8 +96,10 @@
 
                     <?php if ($Products->isEmpty()) { ?>
                         sorry, products not found
-                    <?php } else { ?>
+                    <?php } else {
+                      $countP=0;?>
                         @foreach($Products as $product)
+                        <input type="hidden" id="pro_id<?php echo $countP;?>" value="{{$product->id}}"/>
                         <div class="col-sm-4" >
                             <div class="product-image-wrapper">
                                 <div class="single-products">
@@ -98,25 +121,14 @@
                                         </h2>
 
                                         <p><a href="{{url('/product_details')}}"><?php echo $product->pro_name; ?></a></p>
-                                        <a href="{{url('/cart/addItem')}}/<?php echo $product->id; ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                      <?php /*  <a href="{{url('/cart/addItem')}}/<?php echo $product->id; ?>"
+                                           class="btn btn-default add-to-cart">
+                                           <i class="fa fa-shopping-cart"></i>Add to cart</a> */?>
+                                           <button class="btn btn-success add-to-cart"
+                                           id="cartBtn<?php echo $countP;?>">Add to Cart</button>
+                                           <div id="successMsg<?php echo $countP;?>" class="alert alert-success"></div>
                                     </div>
-                                    <a href="{{url('/product_details')}}/<?php echo $product->id; ?>">
-                                        <div class="product-overlay">
-                                            <div class="overlay-content">
-                                                <h2>
-                                                  @if($product->spl_price==0)
-                                                  ${{$product->pro_price}}
-                                                  @else
-                                                <img src="{{Config::get('app.url')}}theme/images/shop/sale.png" style="width:60px"/>
-                                                <span style="text-decoration:line-through; color:#ddd">
-                                                   ${{$product->pro_price}} </span>
-                                                   ${{$product->spl_price}}
-                                                  @endif
-                                                </h2>
-                                                <p><?php echo $product->pro_name; ?></p>
-                                                <a href="{{url('/cart/addItem')}}/<?php echo $product->id; ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                            </div>
-                                        </div></a>
+
                                 </div>
                                 <div class="choose">
                                     <?php
@@ -139,7 +151,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        <?php $countP++?>
                         @endforeach
                     <?php } ?>
 
