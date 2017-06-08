@@ -237,6 +237,22 @@ class AdminController extends Controller {
       return back();
     }
 
+    public function users(){
+
+      $usersData = DB::table('users')
+    //  ->Join('address','address.user_id','users.id')
+      ->get();
+      return view('admin.users',compact('usersData', $usersData));
+    }
+    public function updateRole(Request $request){
+      $userId =$request->userID;
+       $role_val = $request->role_val;
+
+      $upd_role = DB::table('users')->where('id',$userId)->update(['admin' =>$role_val]);
+      if($upd_role){
+        echo "role is updated successfully";
+      }
+    }
 
 
 

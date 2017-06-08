@@ -1,5 +1,6 @@
 <?php
 
+
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 
@@ -86,6 +87,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
 
     Route::get('addAlt/{id}', 'AdminController@addAlt');
     Route::post('submitAlt','AdminController@submitAlt');
+    Route::get('/users','AdminController@users');
+    Route::get('/updateRole','AdminController@updateRole');
+
+
 });
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::post('addToWishList', 'HomeController@wishList');
