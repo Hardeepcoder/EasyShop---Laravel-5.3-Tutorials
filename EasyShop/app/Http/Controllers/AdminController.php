@@ -245,7 +245,7 @@ class AdminController extends Controller {
       return view('admin.users',compact('usersData', $usersData));
     }
     public function updateRole(Request $request){
-      $userId =$request->userID;
+      $userId = $request->userID;
        $role_val = $request->role_val;
 
       $upd_role = DB::table('users')->where('id',$userId)->update(['admin' =>$role_val]);
@@ -254,6 +254,12 @@ class AdminController extends Controller {
       }
     }
 
+    public function import_products(Request $request){
+      $this->validate($request,[
+        'file' => 'required|mimes:csv,txt'
+      ]);
+
+    }
 
 
 }

@@ -32,6 +32,11 @@ $(document).ready(function(){
         });
         //end loop
         <?php }?>
+        $('#import_products').hide();
+        $('#open_importDiv').click(function(){
+          $('#import_products').fadeIn();
+          $('#open_importDiv').hide();
+        });
 });
 
 </script>
@@ -39,6 +44,15 @@ $(document).ready(function(){
         @include('admin.sidebar')
         <section id="main-content">
             <section class="wrapper">
+          <!-- import div here-->
+        <div style="padding:10px;" class="col-md-12">
+          <form action="{{url('/admin/import_products')}}" method="post" enctype="multipart/form-data">
+            {{csrf_field()}}
+            <input type="file" name="file">
+            <p style="color:red">{{$errors->first('file')}}</p>
+            <input type="submit" value="import" class="btn btn-success"/>
+          </form>
+        </div>
                 <div class="content-box-large">
                     <h1>Products</h1>
                     <table class="table table-striped">

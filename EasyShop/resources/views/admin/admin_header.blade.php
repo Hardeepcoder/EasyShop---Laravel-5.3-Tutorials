@@ -227,7 +227,7 @@
 											<span class="profile-ava">
 													<img alt="" src="{{asset('admin_theme/img/avatar1_small.jpg')}}">
 											</span>
-											<span class="username">Admin Name</span>
+											<span class="username">{{Auth::user()->name}}</span>
 											<b class="caret"></b>
 									</a>
 									<ul class="dropdown-menu extended logout">

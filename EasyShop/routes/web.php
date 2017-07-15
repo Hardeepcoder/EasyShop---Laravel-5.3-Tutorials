@@ -91,6 +91,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     Route::get('/updateRole','AdminController@updateRole');
 
 
+    //import products
+    Route::post('import_products','AdminController@import_products');
+
 });
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::post('addToWishList', 'HomeController@wishList');
