@@ -259,6 +259,27 @@ class AdminController extends Controller {
         'file' => 'required|mimes:csv,txt'
       ]);
 
+      if(($handle = fopen($_FILES['file']['tmp_name'],"r")) !== FALSE){
+        fgetcsv($handle); // remove first row of excel file such as product name,price,code
+
+        while(($data = fgetcsv($handle,1000,",")) !==FALSE){
+
+        $addPro =  DB::table('products')->insert([
+            'pro_name' => $data[0],
+            'pro_code' => $data[1],
+            'pro_info' => $data[2],
+            'pro_img' => $data[3],
+            'pro_price' => $data[4],
+            'cat_id' => $data[5],
+            'stock' => '10',
+            'new_arrival' => '0',
+            'spl_price' => '0',
+            'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+            'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+           ]);
+        }
+      }
+
     }
 
 
