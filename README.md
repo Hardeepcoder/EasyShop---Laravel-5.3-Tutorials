@@ -4,6 +4,6 @@
 or <a href="mailto:hardeepphp@yahoo.com">Email</a> me your error screenshot <a href="mailto:hardeepphp@yahoo.com">Here</a></h2>
 
 
-EasyShop - Laravel 5.3 Tutorial
+EasyShop -=- Laravel 5.3 Tutorial
 Please ask if you have any questions
 feel free to use my code
